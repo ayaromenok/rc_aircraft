@@ -1,36 +1,81 @@
 include <../../lib/lib2.scad>
-//longeron_T_275mm();
-//longeron_I_275mm();
+//longeron_T_275mm(0,0,0, 0,0,45);
+//longeron_I_275mm(0,0,0, 0,0,45);
 //longeron_L_275mm();
+//longeron_T_275mm_cut();
+//longeron_I_275mm_cut();
+
 module longeron_T_275mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
-        yCube(275,2,0.45);
-        difference(){
-            yCube(275,0.45,2.5,   0,0,1.1);
         
-            yCube(0.6,2,2.5,   0,0,2.5);
-            yCube(0.6,2,2.5,   68.75,0,2.5);
-            yCube(0.6,2,2.5,   68.75*2,0,2.5);
-            yCube(0.6,2,2.5,   -68.75,0,2.5);
-            yCube(0.6,2,2.5,   -68.75*2,0,2.5);
+        yCube(275,2,0.7);
+        difference(){
+            yCube(275+3,0.7,2.5,   0,0,1.1);
+        
+            yCube(1.0,2,2.5,   0,0,2.5);
+            yCube(1.0,2,2.5,   68.75,0,2.5);
+            yCube(1.0,2,2.5,   68.75*2,0,2.5);
+            yCube(1.0,2,2.5,   -68.75,0,2.5);
+            yCube(1.0,2,2.5,   -68.75*2,0,2.5);
+            yCube(1.2,2,2.5,   68.75*2+1,0,2.5);
+            yCube(1.2,2,2.5,   -68.75*2-1,0,2.5);
         }//difference
+        //adhesion
+        yCyl(4,0.7, 275/2+5,0,0);
+        yCyl(4,0.7, -275/2-5,0,0);
+	}//transform
+}//module
+
+module longeron_T_275mm_cut(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        yCube(10,2.4,0.75);        
+        yCube(10,1.1,1.6,   0,0,1.1);        
 	}//transform
 }//module
 
 module longeron_I_275mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
-        yCube(275,3,0.45);        
+        difference(){
+            yCube(275+3,5,0.7);        
+            
+            yCube(3,2,2.5,   0.9,1.75,0);
+            yCube(3,2,2.5,   68.75+0.9,1.75,0);
+            yCube(3,2,2.5,   68.75*2-0.9,1.75,0);
+            yCube(3,2,2.5,   -68.75+0.9,1.75,0);
+            yCube(3,2,2.5,   -68.75*2+0.9,1.75,0);            
+            
+            yCube(1.2,2,2.5,   68.75*2+1,1.75,0);
+            yCube(1.2,2,2.5,   -68.75*2-1,1.75,0);
+        }//diff
+            /*yCube(1.2,2,2.5,   0,1.75,0);
+            yCube(1.2,2,2.5,   68.75,1.75,0);
+            yCube(1.2,2,2.5,   68.75*2,1.75,0);
+            yCube(1.2,2,2.5,   -68.75,1.75,0);
+            yCube(1.2,2,2.5,   -68.75*2,1.75,0);            
+        */
+                //adhesion
+        yCyl(4,0.7, 275/2+5,0,0);
+        yCyl(4,0.7, -275/2-5,0,0);
+
 	}//transform
 }//module
+
+module longeron_I_275mm_cut(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){   
+            yCube(10,5,1.2);        
+    }//transform
+}//module            
 
 module longeron_L_275mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
-        yCube(275,2,0.45);
-        yCube(275,0.45,2.5,   0,-0.75,1.1);
+        yCube(275,2,0.7);
+        yCube(275,0.7,2.5,   0,-0.75,1.1);
 	}//transform
 }//module
 /*
