@@ -82,7 +82,7 @@ module nervure_clark_150mm_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=
                 {
                     difference(){
                         import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm");
-                        offset(-0.45)
+                        offset(-1.6)
                         import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm");
                     }//difference
                 }//linear_extrude
@@ -115,11 +115,11 @@ module nervure_clark_150mm_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=
         //internal support - w - width 
         difference(){
             union(){
-                yCube(17,2,h*2,  42,9,h/2,    0,0,90);
-                yCube(17,2,h*2,  48,9,h/2,    0,0,90);
-                yCyl((4+w),h*3,   45,9,h*1);
+                yCube(17,2,h*4,  42,9,h*1.5,    0,0,90);
+                yCube(17,2,h*4,  48,9,h*1.5,    0,0,90);
+                yCyl((4+w),h*9,   45,9,h*4);
             }//union
-            yCyl(4.2,20,    45,9,0);
+            yCyl(4.2,h*20,    45,9,0);
         }//difference        
         
         yCube(w,17,0.7,   19.6,8,-0.25,   0,0,-30);
@@ -131,8 +131,8 @@ module nervure_clark_150mm_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=
             yCyl(4,5,  45,-20,1.9);
             yCyl(2.3,7,  45,-20,2.5);
         }//diff
-        yCube(19,2,h*2,  42,-9,h/2,    0,0,90);
-        yCube(19,2,h*2,  48,-9,h/2,    0,0,90);
+        yCube(19,2,h*4,  42,-9,h*1.5,    0,0,90);
+        yCube(19,2,h*4,  48,-9,h*1.5,    0,0,90);
         
         yCube(29,1.4,h*2,  32,-9.7,h/2,    0,0,-45);
         yCube(29,1.4,h*2,  58,-9.7,h/2,    0,0,45);
