@@ -91,7 +91,7 @@ STANDARD
   9
 $CLAYER
   8
-clark_y_15cm
+clark_y_15cm_aeliron3
   9
 $CELTYPE
   6
@@ -1115,9 +1115,9 @@ AcDbViewportTableRecord
  21
 1
  12
-101.3702058222607
+61.42610055119248
  22
-33.87777806519419
+7.32502530786012
  13
 0
  23
@@ -1143,7 +1143,7 @@ AcDbViewportTableRecord
  37
 0
  40
-112.8820721550937
+21.26860140150248
  41
 2.128205128205128
  42
@@ -2257,7 +2257,7 @@ AcDbLayerTableRecord
   2
 clark_y_12cm
  70
-    0
+    1
  62
     7
   6
@@ -2279,7 +2279,73 @@ AcDbLayerTableRecord
   2
 clark_y_15cm
  70
+    1
+ 62
+    7
+  6
+CONTINUOUS
+370
     0
+390
+F
+  0
+LAYER
+  5
+4C
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+clark_y_15cm_aeliron
+ 70
+    0
+ 62
+    7
+  6
+CONTINUOUS
+370
+    0
+390
+F
+  0
+LAYER
+  5
+4D
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+clark_y_15cm_aeliron2
+ 70
+    1
+ 62
+    7
+  6
+CONTINUOUS
+370
+    0
+390
+F
+  0
+LAYER
+  5
+4E
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+clark_y_15cm_aeliron3
+ 70
+    1
  62
     7
   6
@@ -2305,7 +2371,7 @@ AcDbSymbolTable
   0
 STYLE
   5
-4C
+4F
 330
 2
 100
@@ -2389,7 +2455,7 @@ ACAD
   0
 APPID
   5
-4D
+50
 330
 9
 100
@@ -2421,7 +2487,7 @@ AcDbDimStyleTable
   0
 DIMSTYLE
 105
-4E
+51
 330
 A
 100
@@ -2695,7 +2761,7 @@ ENTITIES
   0
 LWPOLYLINE
   5
-4F
+52
 100
 AcDbEntity
   8
@@ -2801,7 +2867,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-50
+53
 100
 AcDbEntity
   8
@@ -2904,6 +2970,956 @@ AcDbPolyline
 0
  20
 4.875
+  0
+ARC
+  5
+54
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+99.89625528738495
+ 20
+6.59535954217467
+ 40
+5.996257082992728
+100
+AcDbArc
+ 50
+75.4762934642952
+ 51
+270.9913568905986
+  0
+LWPOLYLINE
+  5
+55
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+   21
+ 70
+    0
+ 43
+0
+ 10
+0
+ 20
+4.875
+ 10
+0.325
+ 20
+6.175000000000001
+ 10
+1.95
+ 20
+7.800000000000001
+ 10
+4.875
+ 20
+10.075
+ 10
+10.075
+ 20
+12.35
+ 10
+16.25
+ 20
+14.3
+ 10
+25.35
+ 20
+16.25
+ 10
+38.02500000000001
+ 20
+17.55
+ 10
+48.75
+ 20
+17.875
+ 10
+63.7
+ 20
+17.225
+ 10
+81.575
+ 20
+15.6
+ 10
+100.1
+ 20
+12.675
+ 10
+117.975
+ 20
+9.1
+ 10
+151.125
+ 20
+1.625
+ 10
+151.125
+ 20
+0.9750000000000001
+ 10
+24.375
+ 20
+0
+ 10
+12.675
+ 20
+0.325
+ 10
+6.175000000000001
+ 20
+0.9750000000000001
+ 10
+2.275
+ 20
+1.95
+ 10
+0.65
+ 20
+3.25
+ 10
+0
+ 20
+4.875
+  0
+LINE
+  5
+56
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+101.4
+ 20
+12.4
+ 11
+117.975
+ 21
+9.1
+  0
+LINE
+  5
+57
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+101.4
+ 20
+12.4
+ 11
+117.975
+ 21
+9.1
+  0
+LINE
+  5
+58
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+117.975
+ 20
+9.1
+ 11
+151.125
+ 21
+1.625
+  0
+LINE
+  5
+59
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+151.125
+ 20
+1.625
+ 11
+151
+ 21
+1
+  0
+LINE
+  5
+5A
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+151
+ 20
+1
+ 11
+100
+ 21
+0.5999999999999988
+  0
+LINE
+  5
+5B
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+101.4
+ 20
+12.4
+ 11
+117.975
+ 21
+9.1
+  0
+LINE
+  5
+5C
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+117.975
+ 20
+9.1
+ 11
+151.125
+ 21
+1.625
+  0
+LINE
+  5
+5D
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+151.125
+ 20
+1.625
+ 11
+151.125
+ 21
+0.9750000000000001
+  0
+LINE
+  5
+5E
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+151.125
+ 20
+0.9750000000000001
+ 11
+100
+ 21
+0.5999999999999988
+  0
+LINE
+  5
+5F
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+101.4
+ 20
+12.4
+ 11
+118
+ 21
+9.100000000000001
+  0
+LINE
+  5
+60
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+118
+ 20
+9.100000000000001
+ 11
+151.125
+ 21
+1.625
+  0
+LINE
+  5
+61
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+151.125
+ 20
+1.625
+ 11
+151
+ 21
+1
+  0
+LINE
+  5
+62
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+151
+ 20
+1
+ 11
+100
+ 21
+0.5999999999999988
+  0
+ARC
+  5
+63
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+99.64093931128541
+ 20
+6.636038186157515
+ 40
+6.680233908170863
+100
+AcDbArc
+ 50
+100.7056116464122
+ 51
+246.7130468068778
+  0
+LINE
+  5
+64
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+0
+ 20
+4.875
+ 11
+0.325
+ 21
+6.175000000000001
+  0
+LINE
+  5
+65
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+0.325
+ 20
+6.175000000000001
+ 11
+1.95
+ 21
+7.800000000000001
+  0
+LINE
+  5
+66
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+1.95
+ 20
+7.800000000000001
+ 11
+4.875
+ 21
+10.075
+  0
+LINE
+  5
+67
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+4.875
+ 20
+10.075
+ 11
+10.075
+ 21
+12.35
+  0
+LINE
+  5
+68
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+10.075
+ 20
+12.35
+ 11
+16.25
+ 21
+14.3
+  0
+LINE
+  5
+69
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+16.25
+ 20
+14.3
+ 11
+25.35
+ 21
+16.25
+  0
+LINE
+  5
+6A
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+25.35
+ 20
+16.25
+ 11
+38.02500000000001
+ 21
+17.55
+  0
+LINE
+  5
+6B
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+38.02500000000001
+ 20
+17.55
+ 11
+48.75
+ 21
+17.875
+  0
+LINE
+  5
+6C
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+48.75
+ 20
+17.875
+ 11
+63.7
+ 21
+17.225
+  0
+LINE
+  5
+6D
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+63.7
+ 20
+17.225
+ 11
+81.575
+ 21
+15.6
+  0
+LINE
+  5
+6E
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+151.125
+ 20
+1.625
+ 11
+151.125
+ 21
+0.9750000000000001
+  0
+LINE
+  5
+6F
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+24.375
+ 20
+0
+ 11
+12.675
+ 21
+0.325
+  0
+LINE
+  5
+70
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+12.675
+ 20
+0.325
+ 11
+6.175000000000001
+ 21
+0.9750000000000001
+  0
+LINE
+  5
+71
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+6.175000000000001
+ 20
+0.9750000000000001
+ 11
+2.275
+ 21
+1.95
+  0
+LINE
+  5
+72
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+2.275
+ 20
+1.95
+ 11
+0.65
+ 21
+3.25
+  0
+LINE
+  5
+73
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+0.65
+ 20
+3.25
+ 11
+0
+ 21
+4.875
+  0
+LINE
+  5
+74
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+97.00000000000001
+ 20
+0.5000000000000027
+ 11
+24.375
+ 21
+0
+  0
+LINE
+  5
+75
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron2
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbLine
+ 10
+81.575
+ 20
+15.6
+ 11
+98.40000000000002
+ 21
+13.2
+  0
+CIRCLE
+  5
+76
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron3
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+100
+ 20
+6.5
+ 40
+1.5
+  0
+CIRCLE
+  5
+77
+100
+AcDbEntity
+  8
+clark_y_15cm_aeliron
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+100
+ 20
+6.5
+ 40
+1.5
   0
 ENDSEC
   0
