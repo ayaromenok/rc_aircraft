@@ -4,7 +4,17 @@ include <../../lib/lib2.scad>
 //longeron_L_275mm();
 //longeron_T_275mm_cut();
 //longeron_I_275mm_cut();
+//longeron_aeliron_200mm(-70.5,-70.5,-5.5,    90,0,45);
 
+module longeron_aeliron_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        linear_extrude(height = 200, center = true, convexity = 10)
+            import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm_aeliron_longeron");
+        yCyl(1.2,220,   100,6.7,0);
+    }//transform
+}//module            
+                        
 module longeron_T_275mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){

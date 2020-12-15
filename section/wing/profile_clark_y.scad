@@ -7,6 +7,9 @@ include <longeron_275mm.scad>
 //nervure_clark_150mm_std(pz=0,rz=180,mx=1);
 //nervure_clark_150mm_support();
 //nervure_clark_150mm_support(pz=0,rz=180,mx=1);
+nervure_clark_150mm_std_aileron(0,5);
+nervure_clark_150mm_std_aileron(py=-5, pz=0,rz=180,mx=1);
+
 
 module nervure_clark_150mm_std(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, h=1.2, w=1.2){
     translate([(px), (py), pz])
@@ -150,5 +153,46 @@ module nervure_clark_150mm_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=
             yCube(29,1.4,h*2,  32,-9.7,h/2,    0,0,-45);
             yCube(29,1.4,h*2,  58,-9.7,h/2,    0,0,45);
         }//translate
+	}//transform
+}//module
+
+
+module nervure_clark_150mm_std_aileron(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, h=1.2, w=1.2){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz])
+    {
+        difference(){
+            union(){        
+                translate([0,0,h-0.2])
+                linear_extrude(height = h*2, center = true, convexity = 10)
+                {
+                    difference(){
+                        import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm_aeliron");
+                        offset(-0.45)
+                        import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm_aeliron");
+                    }//difference
+                }//linear_extrude
+                
+                translate([0,0,-h/2+0.2])
+                linear_extrude(height = 0.7, center = true, convexity = 10)
+                {
+                    difference(){
+                        import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm_aeliron");
+                        offset(-3.0)
+                        import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm_aeliron");
+                    }//difference
+                }//linear_extrude
+                
+            }//union
+            //longeron_T_275mm_cut(94.25, 6.1,0,  0,90,0);
+            //longeron_T_275mm_cut(100,1.0,0,  -90,90,0);            
+            //longeron_T_275mm_cut(100,12.2,0,  90,90,0);    
+            longeron_I_275mm_cut(149, 1.2,0,  90,90,0);
+        }//difference
+        
+        
+        
+        //sg90(67,8,0);
 	}//transform
 }//module
