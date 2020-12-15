@@ -22,6 +22,6 @@ module test_bed(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         //rudder
         sg90(-100,0,20,  0,0,180);
         //elevator
-        sg90(-100,0,00,  90,0,180);
+        sg90(-100,0,0,  90,0,180);
 	}//transform
 }//module
