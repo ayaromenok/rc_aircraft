@@ -1,6 +1,6 @@
 include <../lib/lib2.scad>
 
-ESC_30A();
+//ESC_30A();
 
 module ESC_30A(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
