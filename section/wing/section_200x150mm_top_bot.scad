@@ -1,11 +1,12 @@
 include <../../lib/lib2.scad>
 
 //v0 - 2400mm - 7.1g
-//v1 - 1825mm
+//v1 - 1825mm - 5.4g
+//v2 - 1817mm - 5.4g
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-wing_section_200x150mm_v1();
-//wing_section_200x150mm_v2();
+//wing_section_200x150mm_v1();
+wing_section_200x150mm_v2();
 
 module wing_section_200x150mm_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
@@ -40,11 +41,11 @@ module wing_section_200x150mm_v2(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         difference(){
             union(){
                 nervure_clark_150mm_v2();
-                nervure_clark_150mm_v2(0,50);                
+                nervure_clark_150mm_v2(0,50);
+                nervure_clark_150mm_v2(0,-50);
                 //longerons
                 //central
-                longeron_central_v2(length=_length);
-                //yCyl(2,_length,     0,0,10,  90,90,0, sx=2,$fn=3);
+                longeron_central_v2(length=_length);                
                 //front
                 yCyl(2,_length,     38.2,0,0,  90,-90,0);
                 //back
@@ -115,4 +116,17 @@ module longeron_central_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=210, h=13.
         }
     }//transform
 }//module
-    
+
+module longeron_central_v2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=210, h=13.7){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        difference(){
+            yPoly(p=[[0,0],[2,0],[0.38,1],[0.38,h-1],[2,h-0.3], [-3,h],[-0.38,h-1],[-0.38,1],[-3,0]], szz=length, py=length/2,rx=90);            
+            yCube(5,20,10,  0,12.5,7);
+            yCube(5,20,10,  0,37.5,7);
+            yCube(5,20,10,  0,-12.5,7);
+            yCube(5,20,10,  0,-37.5,7);
+        }//difference
+        
+    }//transform
+}//module    
