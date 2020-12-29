@@ -7,8 +7,8 @@ include <../../std/prop_6035.scad>
 include <../../std/reciever_FS_IA6B.scad>
 
 
-fuselage_V0();
-//fuselage_central_sec();
+//fuselage_V0();
+fuselage_central_sec();
 
 module fuselage_V0(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
@@ -60,14 +60,14 @@ module fuselage_central_sec(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
             union(){
                 yMinkCubeSphere(25,14,90,6.8,    0,0,0, sx=5);
                 //bottom
-                yMinkCubeSphere(40,100,22,9.9,    0,0,-40, sx=4);            
+                yMinkCubeSphere(40,100,20,9.9,    0,0,-40, sx=4);            
                 //tail
                 yMinkCubeSphere(35,16,16,4,    -60,0,30, sx=1);
                 //front
                 yMinkCubeSphere(45,16,16,7,    60,0,40, sx=1);                        
                 yCyl(14,10, 73,0,58,   0,90,0);
                 
-                yMinkCubeSphere(35,16,22,7,    75,0,-40, sx=3,sy=2);                        
+                yMinkCubeSphere(35,16,16,7,    60,0,-42, sx=3,sy=2);                        
             }
             yCube(100,6.4,100,    0,0,0);
             
@@ -94,10 +94,11 @@ module fuselage_central_sec(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
             yMinkCubeSphere(45,10,12,4,    58,0,40, sx=1);
 
             //wing connection
-            yCyl(3,100, 20,0,30,  90,0,0);
+            yCyl(2.3,100, 30,0,30,  90,0,0);            
+            yCyl(2.3,100, -30,0,10,  90,0,0);
             //chassis
-            yCyl(3,100, 115,0,-40,  90,0,0);
-            yCyl(3,100, -60,0,-40,  90,0,0);            
+            yCyl(3.3,100, 102,0,-42,  90,0,0);
+            yCyl(3.3,100, -60,0,-40,  90,0,0);            
         }
         
         //battery
