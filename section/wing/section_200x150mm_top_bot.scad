@@ -8,10 +8,10 @@ include <../../lib/lib2.scad>
 
 //wing_section_200x150mm_v1();
 //wing_section_200x150mm_v2();
-//wing_section_200x150mm_v21(0,0);
-//wing_section_200x150mm_v21(0,-100);
+//wing_section_200x150mm_v21();
+wing_section_200x150mm_v21(nerv_w=1);
 
-longeron_connector();
+//longeron_connector();
 
 module longeron_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
@@ -79,16 +79,16 @@ module wing_section_200x150mm_v2(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
 	}//transform
 }//module
 
-module wing_section_200x150mm_v21(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+module wing_section_200x150mm_v21(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=0.75){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         _length = 200;
         difference(){
             union(){
-                nervure_clark_150mm_v1(0, 25);                
-                nervure_clark_150mm_v1(0,75);
-                nervure_clark_150mm_v1(0, -25);              
-                nervure_clark_150mm_v1(0,-75);
+                nervure_clark_150mm_v1(0, 25,nerv_w=nerv_w);                
+                nervure_clark_150mm_v1(0,75,nerv_w=nerv_w);
+                nervure_clark_150mm_v1(0, -25,nerv_w=nerv_w);              
+                nervure_clark_150mm_v1(0,-75,nerv_w=nerv_w);
                 //nervure_clark_150mm_v1(0,-100);
                 //longerons
                 //central
@@ -105,7 +105,7 @@ module wing_section_200x150mm_v21(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
 	}//transform
 }//module
 
-module nervure_clark_150mm_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=0.75, sup_w=2){
+module nervure_clark_150mm_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=0.75){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){        
         difference(){
@@ -123,10 +123,10 @@ module nervure_clark_150mm_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=0.75, s
         yCyl(1.6,2,  -84,0,3,  90,0,0,  2);
         yCyl(1,2,  -94,0,2,  90,0,0,  3);            
         }//difference
-        yCube(150,nerv_w*3,1.1,    -35);        
-        /*        translate([40,0,-5])       
+        yCube(150,nerv_w*3,1.4,    -35);        
+                translate([40,0,-5])       
                 rotate([90,-1.4,180])
-                linear_extrude(height = sup_w, center = true, convexity = 10)
+                linear_extrude(height = nerv_w*3, center = true, convexity = 10)
                 {
                     difference(){
                         import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm");
@@ -134,7 +134,7 @@ module nervure_clark_150mm_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=0.75, s
                         import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm");
                     }//difference
                 }//linear_extrude
-        */
+        
 	}//transform
 }//module
 
@@ -178,8 +178,9 @@ module longeron_central_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=210, h=13.
 module longeron_central_v2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=210, h=13.7){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
+        _w=0.51;
         difference(){
-            yPoly(p=[[0,0],[2,0],[0.38,1],[0.38,h-1],[2,h-0.3], [-3,h],[-0.38,h-1],[-0.38,1],[-3,0]], szz=length, py=length/2,rx=90);            
+            yPoly(p=[[0,0],[2,0],[_w,1],[_w,h-1],[2,h-0.3], [-3,h],[-_w,h-1],[-_w,1],[-3,0]], szz=length, py=length/2,rx=90);            
             yCube(5,20,10,  0,12.5,7);
             yCube(5,20,10,  0,37.5,7);
             yCube(5,20,10,  0,62.5,7);
