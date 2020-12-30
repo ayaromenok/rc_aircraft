@@ -8,7 +8,27 @@ include <../../lib/lib2.scad>
 
 //wing_section_200x150mm_v1();
 //wing_section_200x150mm_v2();
-wing_section_200x150mm_v21();
+//wing_section_200x150mm_v21(0,0);
+//wing_section_200x150mm_v21(0,-100);
+
+longeron_connector();
+
+module longeron_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        h=12.4;
+        difference(){
+            union(){    
+                yCube(19.4,9.4,0.45,  12.5,0,0);
+                yCube(19.4,9.4,0.45,  -12.5,0,0);
+                yPoly(p=[[1.4,0],[0.38,1],[0.38,h-1],[1.4,h-0.3]], szz=45, px=-22.5, py=-6.5, pz=0.3,ry=90);
+            }//union
+            yCube(17,7,5,  12.5,0,0);
+            yCube(17,7,5,  -12.5,0,0);
+        }//difference
+
+	}//transform
+}//module
 
 module wing_section_200x150mm_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
@@ -104,6 +124,17 @@ module nervure_clark_150mm_v1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=0.75, s
         yCyl(1,2,  -94,0,2,  90,0,0,  3);            
         }//difference
         yCube(150,nerv_w*3,1.1,    -35);        
+        /*        translate([40,0,-5])       
+                rotate([90,-1.4,180])
+                linear_extrude(height = sup_w, center = true, convexity = 10)
+                {
+                    difference(){
+                        import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm");
+                        offset(-1)
+                        import(file = "dxf/profile_clark_y.dxf", layer="clark_y_15cm");
+                    }//difference
+                }//linear_extrude
+        */
 	}//transform
 }//module
 
