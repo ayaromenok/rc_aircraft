@@ -1,9 +1,12 @@
 include <../../lib/lib2.scad>
+include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-wing_section_200x150mm_aeliron2(0,-110,0, nerv_w=1);
-//wing_section_200x150mm_aeliron2(0,110,0, my=1, nerv_w=1);
-//wing_section_200x150mm_central();
+wing_section_200x150mm_aeliron(0,-200,0, nerv_w=1); //R
+wing_section_200x150mm_aeliron(0,200,0, my=1, nerv_w=1);//L
+wing_section_200x150mm_aeliron2(0,-200,0, nerv_w=1);//R
+wing_section_200x150mm_aeliron2(0,200,0, my=1, nerv_w=1);//L
+wing_section_200x150mm_central();
 //nervure_clark_150mm_v2(ry=-1.8);
 //longeron_connector();
 
@@ -31,13 +34,19 @@ module wing_section_200x150mm_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w
 	}//transform
 }//module
 
-//4638mm
+//
 module wing_section_200x150mm_aeliron2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, nerv_w=0.75){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
         _length = 200;
-                nervure_clark_150mm_aeliron2(0, 25,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);                                
+                difference(){
+                    union(){
+                        nervure_clark_150mm_aeliron2(0, 25,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
+                        yCube(32,2,14,  -18,25,6);    
+                    }//union
+                    sg90_cut(-18,30,6  ,90,0,0);
+                }//difference
                 nervure_clark_150mm_aeliron2(0,-25,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
                 nervure_clark_150mm(0,75, 2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
                 nervure_clark_150mm(0,-97.5,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
@@ -51,10 +60,37 @@ module wing_section_200x150mm_aeliron2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,
                 yCyl(2.5,_length,     39.4,0,0.3,  90,-30,0, sy=0.25);
                 //back
                 yCyl(0.6,25,     -110.5,87.5,-0.6,  90,-187,0, sx=5,$fn=3);
-                
+                //sg90(-18,30,6  ,90,0,0);                
 	}//transform
 }//module
 
+
+//4638mm
+module wing_section_200x150mm_aeliron(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, nerv_w=0.75){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        _length = 200;
+                nervure_clark_150mm_aeliron(0, 40,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
+                nervure_clark_150mm_aeliron(0,69.5, 2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
+                nervure_clark_150mm_aeliron(0,12,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);                
+                nervure_clark_150mm_aeliron(0,-20, 2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
+                nervure_clark_150mm_aeliron(0,-55, 2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
+                nervure_clark_150mm_aeliron(0,-92,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
+                //nervure_clark_150mm_aeliron2(0,0,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);              
+                //longerons
+                //central
+                //longeron_central(0,0,-0.16,length=_length);
+                //longeron_central(-47.5,0,-0.13,length=_length, h=10.8);
+                //yCyl(2,_length,     0,0,10,  90,90,0, sx=2,$fn=3);
+                //front
+                yCyl(2.5,164,     -57,-11.2,0.3,  90,-30,0, sy=0.25);
+                //back
+                yCyl(0.6,164,     -110.5,-11.2,-0.6,  90,-187,0, sx=5,$fn=3);
+                
+                
+	}//transform
+}//module
 
 //483mm
 //nervure_clark_150mm(0,10,0);
