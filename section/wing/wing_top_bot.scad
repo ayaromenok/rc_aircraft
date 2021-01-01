@@ -2,15 +2,22 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
+
 wing_section_200x150mm_aeliron(0,-200,0, nerv_w=1); //R
 wing_section_200x150mm_aeliron(0,200,0, my=1, nerv_w=1);//L
 wing_section_200x150mm_aeliron2(0,-200,0, nerv_w=1);//R
 wing_section_200x150mm_aeliron2(0,200,0, my=1, nerv_w=1);//L
 wing_section_200x150mm_central();
 //nervure_clark_150mm_v2(ry=-1.8);
-//longeron_connector();
 
-
+/*
+longeron_connector();
+longeron_connector(0,20,h=10.8);
+longeron_connector(0,-20);
+longeron_connector(0,-35,h=10.8);
+yCube(45,4,0.8, 0,35,-1.6);
+yCube(45,4,0.8, 0,45,-1.6);
+*/
 //4335mm
 module wing_section_200x150mm_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=0.75){
     translate([(px), (py), pz])
@@ -34,7 +41,7 @@ module wing_section_200x150mm_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w
 	}//transform
 }//module
 
-//
+//43373
 module wing_section_200x150mm_aeliron2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, nerv_w=0.75){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
@@ -65,7 +72,7 @@ module wing_section_200x150mm_aeliron2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,
 }//module
 
 
-//4638mm
+//1712mm
 module wing_section_200x150mm_aeliron(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, nerv_w=0.75){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
@@ -134,21 +141,24 @@ module nervure_clark_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1,
 	}//transform
 }//module
 
-
-module longeron_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+//longeron_connector(-47,100,6, 90,0,90, h=10);
+//longeron_connector(-47,100,26, 90,0,90);
+module longeron_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, h=13.7){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
-        h=12.4;
+        
         difference(){
             union(){    
-                yCube(19.4,9.4,0.45,  12.5,0,0);
-                yCube(19.4,9.4,0.45,  -12.5,0,0);
-                yPoly(p=[[1.4,0],[0.38,1],[0.38,h-1],[1.4,h-0.1]], szz=45, px=-22.5, py=-6.2, pz=0.3,ry=90);
+                //yCube(19.4,9.4,0.45,  12.5,0,0);
+                //yCube(19.4,9.4,0.45,  -12.5,0,0);
+                yPoly(p=[[2.4,0],[0.38,1],[0.38,h-1],[2.4,h-0.1]], szz=45, px=-22.5, py=-6.2, pz=0.3,ry=90);
             }//union
-            yCube(17,7,5,  12.5,0,0);
-            yCube(17,7,5,  -12.5,0,0);
+            yCube(14,h/2,5,  14.5,0,0);
+            yCube(14,h/2,5,  -14.5,0,0);
+            yCyl(2.8,h*2, -2.5,0,0, 90,90,0, sx=0.4,$fn=6);        
+            yCyl(2.8,h*2, 2.5,0,0, 90,90,0, sx=0.4,$fn=6);        
         }//difference
-
+      
 	}//transform
 }//module
 
