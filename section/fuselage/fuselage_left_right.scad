@@ -1,5 +1,7 @@
 include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
+include <../../std/engine_A2212.scad>
+include <../../std/prop_6035.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
 /*
@@ -12,10 +14,10 @@ wing_section_200x150mm_aeliron2(0,350,0, my=1, nerv_w=1.4);//L
 //wing_section_200x150mm_central(0,-150,0);
 //fuselage_central();
 
-fuselage_central_back(-20,0,-50);
+//fuselage_central_back(-20,0,-50);
 //fuselage_tail(-220,0,-50);
 
-
+fuselage_centralplane_arc();
 //connectors
 //fuselage_tail_connectors();
 
@@ -47,29 +49,58 @@ module fuselage_central_back(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     }//transform
 }//module
 
+module fuselage_centralplane_arc(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        difference(){
+            translate([0,2,-10])
+            rotate([0,-13,0])
+            difference(){ 
+                yArc(102,[-7,22], 17, 2,  -10,0,0,  90,0,0);    
+                for (i=[0:3:20]){
+                    rotate([0,-i,0])
+                    translate([-96,0,0])
+                        yCyl(1.8,50,  -10,0,0, 90,0,0);
+                }//for
+                for (i=[1.5:3:18]){
+                    rotate([0,-i,0])
+                    translate([-90,0,0])
+                        yCyl(1.8,50,  -10,0,0, 90,0,0);
+                }//for
+            }//difference
+            
+            translate([40,0,-5])       
+            rotate([90,10,180])
+                linear_extrude(height = 4, center = true, convexity = 10)
+               offset(0.4)
+                import(file = "../wing/dxf/profile_clark_y_v2.dxf", layer="clark_y_15cm"); 
+        }//difference
+    }//transform
+}//module        
 module fuselage_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
-      translate([40,0,-5])       
-                rotate([90,0,180])
-                linear_extrude(height = 1, center = true, convexity = 10)
-                    import(file = "../wing/dxf/profile_clark_y_v2.dxf", layer="clark_y_15cm"); 
         
-        yCyl(1.8,50,  -10,0,0, 90,0,0);
+        translate([40,0,-5])       
+        rotate([90,10,180])
+            linear_extrude(height = 2, center = true, convexity = 10)
+            import(file = "../wing/dxf/profile_clark_y_v2.dxf", layer="clark_y_15cm"); 
+        
+        engine_A2212(60,0,0, 0,90,0);
+        prop_6035(80,0,0, 0,90,0);
+        
+        yCyl(10,100, 0,0,-60, sx=5);
         difference(){
-            yArc(106,[-3,23], 20, 2,  -10,0,0,  90,0,0);
-        
-            for (i=[0:3:20]){
-                rotate([0,-i,0])
-                translate([-100,0,0])
-                    yCyl(1.8,50,  -10,0,0, 90,0,0);
-            }//for
-            for (i=[1.5:3:18]){
-                rotate([0,-i,0])
-                translate([-90,0,0])
-                    yCyl(1.8,50,  -10,0,0, 90,0,0);
-            }//for
+            yCube(100,2,10, -60,0,-37);
+            yCyl(1.8,50,  -96.3,0,-37, 90,0,0);
+            yCyl(1.8,50,  -102.4,0,-37, 90,0,0);    
         }//difference
+        
+        yCyl(1.8,50,  0,0,0, 90,0,0);
+        
+          
+        
+        
         
     }//transform
 }//module
