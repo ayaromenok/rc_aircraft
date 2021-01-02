@@ -17,9 +17,10 @@ wing_section_200x150mm_aeliron2(0,350,0, my=1, nerv_w=1.4);//L
 //fuselage_central_back(-20,0,-50);
 //fuselage_tail(-220,0,-50);
 
-fuselage_centralplane_arc();
+
 //connectors
 //fuselage_tail_connectors();
+fuselage_centralplane_arc_print();
 
 module fuselage_tail(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
@@ -49,14 +50,42 @@ module fuselage_central_back(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     }//transform
 }//module
 
-module fuselage_centralplane_arc(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+module fuselage_centralplane_arc_print(){
+    union(){
+        fuselage_centralplane_arc(75, rx=-90);
+        yCyl(1.8,2,  -32,-24.5,-0, 0,0,0);
+        ySphere(1,  -32,-24.5,1, 0,0,0);
+        yCyl(1.8,2,  -14,-72,-0, 0,0,0);
+        ySphere(1, -14,-72,1, 0,0,0);
+        yCyl(1.8,2,  -5,-65,-0, 0,0,0);
+        ySphere(1, -5,-65,1, 0,0,0);
+    }//union
+    union(){
+        fuselage_centralplane_arc(-75,rx=-90,mx=1);
+        difference(){
+            yCyl(1.8,2,  32,-24.5,-0, 0,0,0);
+            ySphere(1.4,  32,-24.5,1, 0,0,0);
+        }//diff
+        difference(){
+            yCyl(1.8,2,  14,-72,-0, 0,0,0);
+            ySphere(1.4,  14,-72,1, 0,0,0);
+        }//diff
+        difference(){
+            yCyl(1.8,2,  5,-65,-0, 0,0,0);
+            ySphere(1.4,  5,-65,1, 0,0,0);
+        }//diff
+    }//union
+}//module
+
+module fuselage_centralplane_arc(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0,mz=0){
     translate([(px), (py), pz])
-    rotate([rx,ry,rz]){
+    rotate([rx,ry,rz])
+    mirror([mx, my,mz]){
         difference(){
             translate([0,2,-10])
             rotate([0,-13,0])
             difference(){ 
-                yArc(102,[-7,22], 17, 2,  -10,0,0,  90,0,0);    
+                yArc(102,[-7,25], 17, 2,  -10,0,0,  90,0,0);    
                 for (i=[0:3:20]){
                     rotate([0,-i,0])
                     translate([-96,0,0])
@@ -70,11 +99,11 @@ module fuselage_centralplane_arc(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
             }//difference
             
             translate([40,0,-5])       
-            rotate([90,10,180])
-                linear_extrude(height = 4, center = true, convexity = 10)
+            rotate([90,9,180])
+                linear_extrude(height = 4.4, center = true, convexity = 10)
                offset(0.4)
                 import(file = "../wing/dxf/profile_clark_y_v2.dxf", layer="clark_y_15cm"); 
-        }//difference
+        }//difference        
     }//transform
 }//module        
 module fuselage_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
