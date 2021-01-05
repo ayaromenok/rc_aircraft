@@ -10,13 +10,11 @@ wing_section_200x150mm_aeliron(0,386,0, my=1, nerv_w=1.4);//L
 wing_section_200x150mm_aeliron2(0,-375,0, nerv_w=1.4);//R
 wing_section_200x150mm_aeliron2(0,375,0, my=1, nerv_w=1.4);//L
 */
-wing_section_200x150mm_central(0,100,-7.5, 0,-5,0);
-//wing_section_200x150mm_central(0,-175,0);
+wing_section_200x150mm_central(0,0,-7.5, 0,-5,0);
+//wing_section_200x150mm_central(0,0,0);
 fuselage_central_simple();
-
-//yCyl(8,400,    -250,0,-30,  0,90,0, sx=2);
-//fuselage_central_back(-20,0,-50);
-//fuselage_tail(-220,0,-50);
+//fuselage_central_simple(is_print=true, is_left=false, rx=-90);    //right
+///fuselage_central_simple(is_print=true, is_left=true, rx=90);     //left
 
 
 //connectors
@@ -109,90 +107,150 @@ module fuselage_centralplane_arc(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0,
 }//module        
 
 
-module fuselage_central_simple(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+module fuselage_central_simple(px=0, py=0, pz=0, rx=0, ry=0, rz=0, is_print=false, is_left=true){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
-        
-        engine_A2212(60,0,0, 0,90,0);
-        prop_6035(80,0,0, 0,90,0);
-        
         //main
         difference(){
             union(){
-                yMinkCubeCyl(20,16,93,7,    -10,0,-37, 0,0,0, sx=5.3);
-                yMinkCubeSphere(25,16,30,6.8,    30,0,-21, sx=2.4);
-                
+                difference(){
+                    union(){
+                        yMinkCubeCyl(20,16,93,7,    -10,0,-37, 0,0,0, sx=5.3);
+                        yMinkCubeSphere(25,16,30,6.8,    30,0,-21, sx=2.4);                
+                        yMinkCubeSphere(120,40,4, 1.5,  -10,0,-84);    
+                    }//union
+                    //vertical holes
+                    yCyl(6,102,  20,0,-60, sx=2.7);//eng
+                    yCyl(6.5,102,  -23.5,0,-49, sx=3);//wing
+                    yCyl(4,102,  -53,0,-62, sx=1);//tail
+                    //output to servo            
+                    yCyl(6.5,102,  -23.5,0,-4, 90,-5,sx=3); //wing
+                    yCyl(6,20,  50,0,-20);                  //engine    
+                    yCyl(6,24,  40,0,-24,   0,60,0, sx=1.6);//engine
+                    yCyl(5,100,    -50,0,-30,  0,90,0 );//rail
+            
+                    //longerons cut
+                    yCube(4.4,30,17.1,  38.8,0,4,  0,-5,0);
+                    yCube(4.4,30,19.1,  -0.7,0,1,  0,-5,0);
+                    yCube(4.4,30,22.4,  -48.2,0,-1.5,  0,-5,0);            
+                    //top side as a wing
+                    difference(){
+                        yCube(140,80,30,   0,0,6.6, 0,-5,0);
+        
+                        translate([40,0,-5])       
+                        rotate([90,5,180])
+                            linear_extrude(height = 100, center = true, convexity = 10)
+                            import(file = "../wing/dxf/profile_clark_y_v2.dxf", layer="clark_y_15cm"); 
+                    }//diff
+                    // engine cuts
+                    yCyl(14.6,20, 57.2,0,0,   0,90,0);    
+                    yCyl(5,40, 27.2,-9,-5,   0,90,10);    
+                    yCyl(5,40, 27.2,9,-6,   0,90,-10);                
+            
+                    //holes at teh bottom
+                    yCyl(2.4,30, 45,15,-92);
+                    yCyl(2.4,30, 30,15,-92);            
+                    yCyl(2.4,30, 10,15,-92);
+                    yCyl(2.4,30, -10,15,-92);
+                    yCyl(2.4,30, -30,15,-92);
+                    yCyl(2.4,30, -50,15,-92);
+                    yCyl(2.4,30, -65,15,-92);
+            
+                    yCyl(2.4,30, 45,-15,-92);
+                    yCyl(2.4,30, 30,-15,-92);
+                    yCyl(2.4,30, 10,-15,-92);
+                    yCyl(2.4,30, -10,-15,-92);            
+                    yCyl(2.4,30, -30,-15,-92);
+                    yCyl(2.4,30, -50,-15,-92);
+                    yCyl(2.4,30, -65,-15,-92);            
+                }//diff
+  
+                //engine connector
+                translate([-23.5,0,-58])
+                difference(){    
+                    yCyl(14,6, 68,0,58,   0,90,0);
+            
+                    translate([77,0,58])
+                    rotate([45,0,0])
+                    rotate([0,90,0]){
+                        //holes
+                        yCyl(1.9,10,  9.2,0,-10); 
+                        yCyl(1.9,10,  -9.2,0,-10); 
+                        yCyl(1.9,10,  0,7.7,-10); 
+                        yCyl(1.9,10,  0,-7.7,-10); 
+                        ///central hole
+                        yCyl(4,10,  0,0,-10);
+                        //for hiding nuts
+                        yCyl(3.9,7,  9.2,0,-11.5); 
+                        yCyl(3.9,7,  -9.2,0,-11.5); 
+                        yCyl(3.9,7,  0,7.7,-11.5); 
+                        yCyl(3.9,7,  0,-7.7,-11.5);                                 
+                    }//translate
+                    translate([77,0,58])
+                    rotate([0,90,0]){
+                        //holes
+                        yCyl(8,10,  17,0,-10); 
+                        yCyl(8,10,  -17,0,-10); 
+                        yCyl(8,10,  0,17,-10); 
+                        yCyl(8,10,  0,-17,-10); 
+                    }//translate            
+                }//diff
             }//union
-            //vertical holes
-            yCyl(6,102,  20,0,-60, sx=2.7);//eng
-            yCyl(6.5,102,  -23.5,0,-49, sx=3);//wing
-            yCyl(4,102,  -53,0,-62, sx=1);//tail
-            //output to servo            
-            yCyl(6.5,102,  -23.5,0,-4, 90,-5,sx=3); //wing
-            yCyl(6,20,  50,0,-20);                  //engine    
-            yCyl(6,24,  40,0,-24,   0,60,0, sx=1.6);//engine
-            yCyl(5,100,    -50,0,-30,  0,90,0 );//rail
+            //cut section
+            if (is_print){
+                if (is_left){
+                    yCube(200,50,200,   0,-25,0);
+                    //holes for M3
+                    yCyl(1.9,20,    20,0,3,  90,0,0);
+                    yCyl(3.6,5,    20,7,3,  90,0,0);
             
-            //longerons cut
-            yCube(4.4,30,17.1,  38.8,0,4,  0,-5,0);
-            yCube(4.4,30,17.1,  -0.7,0,0,  0,-5,0);
-            yCube(4.4,30,22.4,  -48.2,0,-1.5,  0,-5,0);            
-            //top side as a wing
-            difference(){
-                yCube(140,80,30,   0,0,6.6, 0,-5,0);
-        
-                translate([40,0,-5])       
-                rotate([90,5,180])
-                    linear_extrude(height = 100, center = true, convexity = 10)
-                    import(file = "../wing/dxf/profile_clark_y_v2.dxf", layer="clark_y_15cm"); 
-            }//diff
-            // engine cuts
-            yCyl(14.6,20, 57.2,0,0,   0,90,0);    
-            yCyl(5,40, 27.2,-9,-5,   0,90,10);    
-            yCyl(5,40, 27.2,9,-6,   0,90,-10);    
+                    yCyl(1.9,20,    0,0,-45,  90,0,0);
+                    yCyl(3.6,5,     0,7,-45,  90,0,0);
             
+                    yCyl(1.9,20,    -47,0,-20,  90,0,0);
+                    yCyl(3.6,5,     -47,6,-20,  90,0,0);
             
+                    yCyl(1.9,20,    -47,0,-40,  90,0,0);
+                    yCyl(3.6,5,     -47,6,-40,  90,0,0);
+                } else {
+                    yCube(200,50,200,   0,25,0);
+                    //holes for M3
+                    yCyl(1.9,20,    20,0,3,  90,0,0);
+                    yCyl(3.6,5,    20,-7,3,  90,0,0);
+            
+                    yCyl(1.9,20,    0,0,-45,  90,0,0);
+                    yCyl(3.6,5,     0,-7,-45,  90,0,0);
+                
+                    yCyl(1.9,20,    -47,0,-20,  90,0,0);
+                    yCyl(3.6,5,     -47,-6,-20,  90,0,0);
+            
+                    yCyl(1.9,20,    -47,0,-40,  90,0,0);
+                    yCyl(3.6,5,     -47,-6,-40,  90,0,0);
+                }//if is_left
+            }//is_print
         }//diff
         
         
         
-    
-      //engine connector
-        translate([-23.5,0,-58])
-        difference(){    
-            yCyl(14,6, 68,0,58,   0,90,0);
-            
-            translate([77,0,58])
-            rotate([45,0,0])
-            rotate([0,90,0]){
-                //holes
-                yCyl(1.9,10,  9.2,0,-10); 
-                yCyl(1.9,10,  -9.2,0,-10); 
-                yCyl(1.9,10,  0,7.7,-10); 
-                yCyl(1.9,10,  0,-7.7,-10); 
-                ///central hole
-                yCyl(4,10,  0,0,-10);
-                //for hiding nuts
-                yCyl(3.9,7,  9.2,0,-11.5); 
-                yCyl(3.9,7,  -9.2,0,-11.5); 
-                yCyl(3.9,7,  0,7.7,-11.5); 
-                yCyl(3.9,7,  0,-7.7,-11.5);                                 
-            }//translate
-            translate([77,0,58])
-            rotate([0,90,0]){
-                //holes
-                yCyl(8,10,  17,0,-10); 
-                yCyl(8,10,  -17,0,-10); 
-                yCyl(8,10,  0,17,-10); 
-                yCyl(8,10,  0,-17,-10); 
-            }//translate            
-        }//diff
-        //chassis
         
-        //yCyl(10,100, 0,0,-100, 90,0,0,sx=3);
-        //yMinkCubeCyl(40,20,100,7,    0,0,-100, 90,0,0, sx=3);
-        yCyl(5,160, -70,0,-100, 90,0,0,sx=3);
-        yCyl(5,80, 70,0,-100, 90,0,0,sx=3);
+        
+        //chassis - use as separate part
+        //yMinkCubeCyl(45,20,40,7,    -10,0,-92, 90,0,0, sx=3);           
+        //yCyl(2,80, -70,0,-100, 90,0,0,sx=3);        
+        /*
+        yCyl(6,14, -70,-68,-100, 90,0,0);        
+        yCyl(6,14, -70,68,-100, 90,0,0);        
+        yMinkCylSphere(3,60,2,  -70,45,-92, 75,sx=3);
+        yMinkCylSphere(3,60,2,  -70,-45,-92, -75,sx=3);
+        yMinkCylSphere(3,41,2,  -70,0,-84.4, 90,sx=3);
+        
+        yCyl(6,14, 100,-38,-100, 90,0,0);        
+        yCyl(6,14, 100,38,-100, 90,0,0);        
+        yMinkCylSphere(3,30,2,  100,25,-92, 60,sx=3);
+        yMinkCylSphere(3,30,2,  100,-25,-92, -60,sx=3);
+        yMinkCylSphere(3,31,2,  100,0,-85.4, 90,sx=3);
+        yMinkCylSphere(3,68,2,  70,0,-84.4, 92,0,90,sx=3);
+        */
     }//transform
 }//module
 
