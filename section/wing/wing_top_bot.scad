@@ -3,11 +3,13 @@ include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
 
-wing_section_200x150mm_aeliron(0,-211,0, nerv_w=1.4); //R
-wing_section_200x150mm_aeliron(0,211,0, my=1, nerv_w=1.4);//L
-wing_section_200x150mm_aeliron2(0,-200,0, nerv_w=1.4);//R
-wing_section_200x150mm_aeliron2(0,200,0, my=1, nerv_w=1.4);//L
-wing_section_200x150mm_central();
+//wing_section_200x150mm_aeliron(0,-361,0, nerv_w=1.4); //R
+//wing_section_200x150mm_aeliron(0,361,0, my=1, nerv_w=1.4);//L
+//wing_section_200x150mm_aeliron2(0,-350,0, nerv_w=1.4);//R
+//wing_section_200x150mm_aeliron2(0,350,0, my=1, nerv_w=1.4);//L
+//wing_section_200x150mm_central(0,150,0);
+//wing_section_200x150mm_central(0,-150,0);
+wing_section_100x150mm_central();
 //nervure_clark_150mm_v2(ry=-1.8);
 
 /*
@@ -20,6 +22,31 @@ yCube(45,4,0.8, 0,45,-1.6);
 */
 //4335mm
 //4952mm
+module wing_section_100x150mm_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        _length = 100;
+                nervure_clark_150mm(0, 25,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);                                
+                nervure_clark_150mm(0,-25,2.5, ry=-1.2,sz=0.88, nerv_w=nerv_w);
+                
+                //longerons
+                //central
+                longeron_central_strengthed_100mm(0,0,0,length=_length);
+                longeron_central_strengthed_100mm(-47.5,0,0,length=_length, h=10.8);
+                //yCyl(2,_length,     0,0,10,  90,90,0, sx=2,$fn=3);
+                //front
+                yCyl(2.3,_length,     39.4,0,0.3,  90,-30,0, sy=0.25);
+                //back
+                yCyl(0.6,_length,     -110.5,0,-0.6,  90,-187,0, sx=5,$fn=3);
+                
+                //central position fixers
+                yCube(4,4,4,    2,9.8,1);
+                yCube(4,4,4,    2,-9.8,1);
+                yCube(4,3,4,    -49.5,9.3,1);
+                yCube(4,3,4,    -49.5,-9.3,1);
+	}//transform
+}//module
+
 module wing_section_200x150mm_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
@@ -162,6 +189,20 @@ module longeron_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, h=13.7){
 	}//transform
 }//module
 
+
+
+module longeron_central_strengthed_100mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=100, h=13.7){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        yCyl(2.2,length,    0,0,0, 0,-90,90, sx=0.9, $fn=3);
+        yCyl(2.2,length,    0,0,h, 0,90,90, sx=0.9, $fn=3);
+        
+        yCyl(2.5,h, 0,0,h/2, , sx=0.4,$fn=6);        
+        yCyl(2.5,h, 0,47.5,h/2, , sx=0.4,$fn=6);                
+        yCyl(2.5,h, 0,-47.5,h/2, , sx=0.4,$fn=6);        
+        
+    }//transform
+}//module    
 
 
 module longeron_central(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13.7){
