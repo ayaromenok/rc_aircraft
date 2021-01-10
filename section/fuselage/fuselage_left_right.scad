@@ -4,22 +4,39 @@ include <../../std/engine_A2212.scad>
 include <../../std/prop_6035.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-/*
-wing_section_200x150mm_aeliron(0,-386,0, nerv_w=1.4); //R
-wing_section_200x150mm_aeliron(0,386,0, my=1, nerv_w=1.4);//L
-wing_section_200x150mm_aeliron2(0,-375,0, nerv_w=1.4);//R
-wing_section_200x150mm_aeliron2(0,375,0, my=1, nerv_w=1.4);//L
-*/
-wing_section_200x150mm_central(0,0,-7.5, 0,-5,0);
-//wing_section_200x150mm_central(0,0,0);
+
+wing_upper();
+
 fuselage_central_simple();
+wing_section_200x150mm_central(0,120,-100.5, 0,-5,0);
+wing_section_200x150mm_central(0,-120,-100.5, 0,-5,0);
+
+
+//wing_section_200x150mm_central(0,0,0);
 //fuselage_central_simple(is_print=true, is_left=false, rx=-90);    //right
-///fuselage_central_simple(is_print=true, is_left=true, rx=90);     //left
-
-
+//fuselage_central_simple(is_print=true, is_left=true, rx=90);     //left
 //connectors
 //fuselage_tail_connectors();
 //fuselage_centralplane_arc_print();
+
+module wing_upper(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        //cantral section
+        scale([1,0.5,1])
+            wing_section_200x150mm_central(0,0,-7.5, 0,-5,0);
+        wing_section_200x150mm_central(0,150,-7.5, 0,-5,0);
+        wing_section_200x150mm_central(0,-150,-7.5, 0,-5,0);
+        wing_section_200x150mm_central(0,350,-7.5, 0,-5,0);
+        wing_section_200x150mm_central(0,-350,-7.5, 0,-5,0);
+        
+        //aeliron section
+        wing_section_200x150mm_aeliron(0,-561,-7.5, 0,-5,0,nerv_w=1.4); //R
+        wing_section_200x150mm_aeliron(0,566,-7.5, 0,-5,0, my=1, nerv_w=1.4);//L
+        wing_section_200x150mm_aeliron2(0,-550,-7.5, 0,-5,0,nerv_w=1.4);//R
+        wing_section_200x150mm_aeliron2(0,550,-7.5, 0,-5,0, my=1, nerv_w=1.4);//L
+    }//transform
+}//module
 
 module fuselage_tail(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
