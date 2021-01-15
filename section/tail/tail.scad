@@ -4,6 +4,9 @@ include <../../std/engine_A2212.scad>
 include <../../std/prop_6035.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 ///*
+
+fuselage_tail_p2();
+
 tailplane_150x100mm(0,-89,0, nerv_w=1.4);//R
 tailplane_150x100mm(0,89,0, my=1, nerv_w=1.4);//L
 tail_elevator_150x100mm(8,-100,0, nerv_w=1.4); //R
@@ -22,7 +25,15 @@ yCube(30,2,0.7,     0,-25,-1);
 yCube(30,2,0.7,     0,-30,-1);
 ////*/
 
-
+module fuselage_tail_p2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, nerv_w=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz])    
+    {
+        longeron_central(0,0,0, 0,90,90);       
+	}//transform
+}//module        
+        
 module fin_150x100mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])

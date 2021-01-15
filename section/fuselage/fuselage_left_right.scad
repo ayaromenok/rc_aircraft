@@ -6,10 +6,11 @@ include <../../std/prop_6035.scad>
 
 
 wing_upper();
+//wing_section_200x150mm_central(0,120,-100.5, 0,-5,0);
+//wing_section_200x150mm_central(0,-120,-100.5, 0,-5,0);
 
 fuselage_central_simple();
-wing_section_200x150mm_central(0,120,-100.5, 0,-5,0);
-wing_section_200x150mm_central(0,-120,-100.5, 0,-5,0);
+fuselage_central_simple_bottom();
 
 
 //wing_section_200x150mm_central(0,0,0);
@@ -18,7 +19,22 @@ wing_section_200x150mm_central(0,-120,-100.5, 0,-5,0);
 //connectors
 //fuselage_tail_connectors();
 //fuselage_centralplane_arc_print();
-
+module fuselage_central_simple_bottom(px=0, py=0, pz=0, rx=0, ry=0, rz=0, is_print=false, is_left=true){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        yMinkCubeSphere(100,40,30,6.8,    -10,20,-100, sx=1);
+        yMinkCubeSphere(40,160,10,4.9,    -24,110,-110, sx=1);
+        //wing support
+        yMinkCubeSphere(10,200,2,0.95,    -10,120,-60, 30,0,0);
+        yMinkCubeSphere(10,240,2,0.95,    -10,290,-60, 23,0,0);
+        yMinkCubeSphere(10,200,2,0.95,    -40,120,-60, 30,0,0);
+        yMinkCubeSphere(10,240,2,0.95,    -40,290,-60, 23,0,0);
+        
+        yCyl(30,10, -150,100,-140, 90,0,0);
+        yCyl(30,10, 150,0,-140, 90,0,0);
+        
+    }//transform
+}//module
 module wing_upper(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
