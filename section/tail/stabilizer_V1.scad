@@ -10,8 +10,26 @@ module stabilizer_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     rotate([rx,ry,rz]){        
         stab_h_section_200x150mm_outer(0,125,0);
         stab_h_section_200x150mm_outer(0,-125,0, my=1);
+        stab_h_elevator(0,125,0);
+        stab_h_elevator(0,-125,0, my=1);
     }//transform
 }//module
+
+module stab_h_elevator(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        longeron_aeliron_170mm(h=6.4,-30.5,12);
+        //back longeron
+        yCube(4,170,0.7,    -64,12,0.35);
+                            
+        nervure_clark_y_105mm_aeliron(0,35);
+        nervure_clark_y_105mm_aeliron(0,-20);
+        nervure_clark_y_105mm_aeliron(0,95.5);
+        nervure_clark_y_105mm_aeliron(0,-72);
+    }//transform
+}//module
+
 
 module stab_h_section_200x150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
     translate([(px), (py), pz])
@@ -21,13 +39,30 @@ module stab_h_section_200x150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, 
         longeron_central_200mm(h=7.5, size=3,  -22);
         //front longeron
         yCyl(1.7,200, 39.6,0,0.9,  90,60,0, sx=0.3);
-        
                         
         nervure_clark_y_105mm_outer(0,35);
         nervure_clark_y_105mm_outer(0,-20);
         nervure_clark_y_105mm_outer2(0,98.5);        
         nervure_clark_y_105mm_outer2(0,-75);        
     }//transform
+}//module
+
+
+module nervure_clark_y_105mm_aeliron(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.5, off=1.1){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    scale([sx,sy,sz]){        
+        union(){
+            difference(){
+                nervure_clark_y_105mm();
+                yCube(100,10,20,  22,0,4.5);
+            }//difference
+            difference(){
+                yCyl(3.5,width,  -28,0,3.5,  90,0,0);
+                yCyl(1.6,width*2,  -28,0,3.5,  90,0,0);
+            }//difference
+        }//union 
+	}//transform
 }//module
 
 //nervure_clark_y_105mm();
@@ -115,6 +150,25 @@ module nervure_cut(width=10, height=6, px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1,
     }//transform
 }//module
 
+
+module longeron_aeliron_170mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=170, h=7.2, size=2.5){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        //yCyl(size/2,length,    0,0,0, 0,-90,90, sx=0.9, $fn=6);
+        //yCyl(size/2,length,    0,0,h, 0,90,90, sx=0.9, $fn=3);
+        s_2=size/2;
+        s_4=size/4;
+        yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=length/2,rx=90);
+        yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=-length/2,pz=h,rx=-90);
+        
+        translate([0,-length/2,0])
+        for (i=[0:57:(length)]){
+            yCyl(2.5,h, 0,i+25,h/2, sx=0.4,$fn=6);
+        }
+    }//transform
+}//module
+
+
 module longeron_alu_1000x10x2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
@@ -133,7 +187,7 @@ module longeron_central_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=
         yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=-length/2,pz=h,rx=-90);
         
         translate([0,-length/2,0])
-        for (i=[0:47.5:(length)]){
+        for (i=[0:52:(length)]){
             yCyl(2.5,h, 0,i+5,h/2, sx=0.4,$fn=6);
         }
     }//transform
