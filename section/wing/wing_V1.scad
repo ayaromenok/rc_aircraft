@@ -2,9 +2,19 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-
-
-wing_section_200x150mm_straight();
+wing_assembly();
+module wing_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        longeron_alu_1000x10x2(-2,0,6.5,    90,0,90);
+        
+        wing_section_200x150mm_straight(0,125,0);
+        wing_section_200x150mm_straight(0,-125,0);
+        wing_section_200x150mm_straight(0,325,0);
+        wing_section_200x150mm_straight(0,-325,0);
+        
+    }//transform
+}//module
 
 module wing_section_200x150mm_straight(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
@@ -69,6 +79,13 @@ module nervure_cut(width=10, height=6, px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1,
         w_2=width/2;
         w_4=width/4;
         yPoly(p=[[w_2,0],[w_2,h_2],[w_4,h],[-w_4,h], [-w_2,h_2],[-w_2,0]], szz=depth,py=depth/2,rx=90);
+    }//transform
+}//module
+
+module longeron_alu_1000x10x2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        yCube(1000,10,2);
     }//transform
 }//module
 
