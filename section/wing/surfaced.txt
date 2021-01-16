@@ -1,0 +1,1 @@
+To make wing section more or less suitable by weight need to use 0.2mm printing nozzle (so 30-40g per 3dm^2)
