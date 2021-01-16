@@ -116,8 +116,8 @@ module nervure_clark_y_150mm_outer2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy
         union(){
             nervure_clark_y_150mm();
             difference(){
-                yCyl(4.8,width,  -60,0,4.7,  90,0,0);
-                yCyl(1.8,width*2,  -60,0,4.7,  90,0,0);
+                yCyl(4.8,width,  -61,0,4.7,  90,0,0);
+                yCyl(1.8,width*2,  -61,0,4.7,  90,0,0);
             }
         }//union         
 	}//transform
