@@ -2,6 +2,7 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
+//wing_section_200x150mm_outer();
 wing_assembly();
 module wing_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
@@ -12,21 +13,43 @@ module wing_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         wing_section_200x150mm_straight(0,-125,0);
         wing_section_200x150mm_straight(0,325,0);
         wing_section_200x150mm_straight(0,-325,0);
-        
+        wing_section_200x150mm_outer(0,525,0);
+        wing_section_200x150mm_outer(0,-525,0, my=1);
     }//transform
 }//module
 
-module wing_section_200x150mm_straight(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module wing_section_200x150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        longeron_central_200mm();
+        longeron_central_200mm(h=12.4, -30);
+        //front longeron
+        yCyl(2.3,200, 39.4,0,1.2,  90,60,0, sx=0.3);
+        //back longeron 
+        size=3; s_2=size/2; s_4=size/4;
+        yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=175,px=-56,py=100,rx=90);
+        yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=175,px=-56,py=-75, pz=10, rx=-90);
+                
+        nervure_clark_y_150mm_outer(0,35);
+        nervure_clark_y_150mm_outer(0,-20);
+        nervure_clark_y_150mm_outer2(0,98.5);        
+        nervure_clark_y_150mm_outer2(0,-75);        
+    }//transform
+}//module
+
+module wing_section_200x150mm_straight(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         longeron_central_200mm();
         longeron_central_200mm(h=12.4, -30);
+        //front longeron
+        yCyl(2.3,200, 39.4,0,1.2,  90,60,0, sx=0.3);
         
         nervure_clark_y_150mm(0,25);
         nervure_clark_y_150mm(0,-25);
         nervure_clark_y_150mm(0,75);        
         nervure_clark_y_150mm(0,-75);
-
     }//transform
 }//module
 
@@ -68,6 +91,32 @@ module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=
 	}//transform
 }//module
 
+module nervure_clark_y_150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=3, off=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    scale([sx,sy,sz]){        
+        difference(){
+            nervure_clark_y_150mm();
+            yCyl(5,10,  -60,0,4.8,  90,0,0);
+            yCube(60,10,10,  -90,0,5);
+        }
+	}//transform
+}//module
+
+
+module nervure_clark_y_150mm_outer2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=3, off=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    scale([sx,sy,sz]){                
+        union(){
+            nervure_clark_y_150mm();
+            difference(){
+                yCyl(4.8,width,  -60,0,4.7,  90,0,0);
+                yCyl(1.8,width*2,  -60,0,4.7,  90,0,0);
+            }
+        }//union         
+	}//transform
+}//module
 
 module nervure_cut(width=10, height=6, px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, depth=3){
     translate([(px), (py), pz])
