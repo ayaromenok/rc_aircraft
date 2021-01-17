@@ -2,16 +2,44 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-//wing_section_200x150mm_outer();
+//wing_section_200x105mm_outer();
 stabilizer_assembly();
-
+//stab_v_section_200x105mm_outer();
 module stabilizer_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){        
-        stab_h_section_200x150mm_outer(0,125,0);
-        stab_h_section_200x150mm_outer(0,-125,0, my=1);
+        stab_h_section_200x105mm_outer(0,125,0);
+        stab_h_section_200x105mm_outer(0,-125,0, my=1);
         stab_h_elevator(0,125,0);
         stab_h_elevator(0,-125,0, my=1);
+        stab_v_section_200x105mm_outer(0,0,125, 90,0,0);
+        stab_v_section_200x105mm_outer(0,0,125, 90,0,0, mz=1);
+    }//transform
+}//module
+
+module stab_v_section_200x105mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        longeron_central_200mm(h=7, size=3,  23.5);
+        longeron_central_200mm(h=6, size=3,  -5);
+        //front longeron
+        yCube(3,200,0.7, 39.2,0,0.35);
+                        
+        nervure_clark_y_105mm_half_outer(0,35);
+        nervure_clark_y_105mm_half_outer(0,-20);
+        nervure_clark_y_105mm_half_outer(0,98.5);        
+        nervure_clark_y_105mm_half_outer(0,-75);    
+        difference(){
+            yTube(5,1.8,3, -12,-75,0,  90,0,0);
+            yCube(10,5,5, -12,-75,-2.5,  90,0,0);
+        }//diff
+        yCube(5,3,4, -7,-75,2,  0,0,0);
+        difference(){
+            yTube(5,1.8,3, -12,98.5,0,  90,0,0);
+            yCube(10,5,5, -12,98.5,-2.5,  90,0,0);
+        }//diff
+        yCube(5,3,4, -7,98.5,2,  0,0,0);
     }//transform
 }//module
 
@@ -31,7 +59,7 @@ module stab_h_elevator(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
 }//module
 
 
-module stab_h_section_200x150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
+module stab_h_section_200x105mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
@@ -47,6 +75,43 @@ module stab_h_section_200x150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, 
     }//transform
 }//module
 
+
+module nervure_clark_y_105mm_half_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.5, off=1.1){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    scale([sx,sy,sz]){        
+        size_supp=1.75;//*2
+        difference(){
+        translate([40,0,0])       
+                rotate([90,0,180])
+                union(){    
+                    linear_extrude(height = width/3, center = true, convexity = 10)
+                        scale([0.7,0.7,0.7])
+                        import(file = "../dxf/profile_clark_y.dxf", layer="clark_y_stab_vert2");                
+                    linear_extrude(height = width, center = true, convexity = 10)
+                    {
+                        difference(){
+                            scale([0.7,0.7,0.7])
+                            import(file = "../dxf/profile_clark_y.dxf", layer="clark_y_stab_vert2");
+                            offset(-off)
+                                scale([0.7,0.7,0.7])
+                                import(file = "../dxf/profile_clark_y.dxf", layer="clark_y_stab_vert2");
+                        }//difference
+                    }//linear_extrude                    
+                }//union
+                
+            nervure_cut(15,3,       30,0,off);    
+            nervure_cut(15,5.5,    15,0,off);    
+            nervure_cut(13,4.5,    1.5,0,off);    
+                        
+                
+        }//difference        
+        
+        yCyl(size_supp,6, 23.5,0,off, sy=0.4,$fn=6, cnt=false);
+        yCyl(size_supp,6, 8,0,off, sy=0.4,$fn=6, cnt=false);        
+       
+	}//transform
+}//module
 
 module nervure_clark_y_105mm_aeliron(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.5, off=1.1){
     translate([(px), (py), pz])
