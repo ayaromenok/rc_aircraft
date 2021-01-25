@@ -3,8 +3,9 @@ include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
 //wing_section_200x105mm_outer();
-//stabilizer_assembly();
-stab_central_section();
+stabilizer_assembly();
+//stab_central_section();
+//stab_central_section_support(rx=180);
 //stab_v_section_200x105mm_outer();//Right
 //stab_v_section_200x105mm_outer(my=1);//Left
 //stab_h_section_200x105mm_outer();//Left
@@ -21,10 +22,19 @@ module stabilizer_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         stab_v_section_200x105mm_outer(-11,0,120, 90,0,0, mz=1);
         stab_h_elevator(4.5,-6,120, -90,0,-5, my=1);
         stab_central_section();
+        stab_central_section_support();
     }//transform
 }//module
 
-
+module stab_central_section_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){ 
+        yMinkCubeSphere(30,8,3, 1, 43,0,-1);
+        yMinkCubeSphere(30,4,3, 1, 43,0,-10, 0,-45,0);
+        yMinkCubeSphere(20,4,3, 1, 34,0,-10, 0,-90,0);
+    }//transform
+}//module
 module stab_central_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
@@ -32,18 +42,17 @@ module stab_central_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0
         //longeron_alu_600x15x2(300,0,10, 90,0,0);
         translate([43,0,0])
         difference(){
-            yMinkCubeSphere(54,7,20, 1, 0,0,10);
+            yMinkCubeSphere(54,8,20, 3, 0,0,10);
             yCube(56,2.6,16,  0,0,10);            
             yCyl(6,10,  -15,0,10,  90,22.5,0, $fn=8);
-            yCyl(6,10,  0,0,10,  90,22.5,0, $fn=8);
-            yCyl(6,10,  15,0,10,  90,22.5,0, $fn=8);
+            yCyl(6,10,  0,0,10,  90,22.5,0, $fn=8);            
         }//difference
         yCyl(2,20,  38.5,12,1.8,  90,30, sx=0.5);
         yCyl(2,20,  38.5,-12,1.8,  90,30, sx=0.5);
         
         //vsrtical SG90
         difference(){
-            yMinkCubeSphere(44,5,20, 2, 48,0,28);
+            yMinkCubeSphere(44,8,20, 3, 48,0,28);
             sg90_cut(50,0,31, 0,0,180);
             yCyl(5,20,  60,0,27 ,    90);
             yCube(10,2,50,  25,0,28);
@@ -55,8 +64,8 @@ module stab_central_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0
                 yMinkCubeCyl(5,9,52,  1,  15,0,4.5,  90);        
                 yMinkCubeCyl(5,7.5,52,  1,  -22,0,3.75,  90);        
                 //vertical
-                yMinkCubeCyl(7,9,40, 2.5,   12.5,0,20);
-                yMinkCubeCyl(8,7,40, 2.5,   -16,0,20);        
+                yMinkCubeCyl(11,9,40, 2.5,   12.5,0,20);
+                yMinkCubeCyl(11,7,40, 2.5,   -16,0,20);        
                 //fuselage
                 yMinkCubeSphere(42,6,20, 1.5, -2,0,10);
             }//union
