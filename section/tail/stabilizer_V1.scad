@@ -4,12 +4,12 @@ include <../../std/sg90.scad>
 
 //wing_section_200x105mm_outer();
 //stabilizer_assembly();
-//stab_central_section();
+stab_central_section();
 //stab_v_section_200x105mm_outer();//Right
 //stab_v_section_200x105mm_outer(my=1);//Left
 //stab_h_section_200x105mm_outer();//Left
 //stab_h_section_200x105mm_outer(my=1);//RIght
-stab_h_elevator();
+//stab_h_elevator();
 module stabilizer_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){        
@@ -32,20 +32,20 @@ module stab_central_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0
         //longeron_alu_600x15x2(300,0,10, 90,0,0);
         translate([43,0,0])
         difference(){
-            yMinkCubeSphere(54,6,20, 1, 0,0,10);
+            yMinkCubeSphere(54,7,20, 1, 0,0,10);
             yCube(56,2.6,16,  0,0,10);            
             yCyl(6,10,  -15,0,10,  90,22.5,0, $fn=8);
             yCyl(6,10,  0,0,10,  90,22.5,0, $fn=8);
             yCyl(6,10,  15,0,10,  90,22.5,0, $fn=8);
         }//difference
-        yCyl(2,20,  38.5,12,2,  90,30, sx=0.5);
-        yCyl(2,20,  38.5,-12,2,  90,30, sx=0.5);
+        yCyl(2,20,  38.5,12,1.8,  90,30, sx=0.5);
+        yCyl(2,20,  38.5,-12,1.8,  90,30, sx=0.5);
         
         //vsrtical SG90
         difference(){
             yMinkCubeSphere(44,5,20, 2, 48,0,28);
             sg90_cut(50,0,31, 0,0,180);
-            yCyl(5,20,  60,0,25,    90);
+            yCyl(5,20,  60,0,27 ,    90);
             yCube(10,2,50,  25,0,28);
         }
         
@@ -55,8 +55,8 @@ module stab_central_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0
                 yMinkCubeCyl(5,9,52,  1,  15,0,4.5,  90);        
                 yMinkCubeCyl(5,7.5,52,  1,  -22,0,3.75,  90);        
                 //vertical
-                yMinkCubeCyl(7,9,40, 2.5,   12.5,0,19);
-                yMinkCubeCyl(7,8,40, 2.5,   -16,0,19);        
+                yMinkCubeCyl(7,9,40, 2.5,   12.5,0,20);
+                yMinkCubeCyl(8,7,40, 2.5,   -16,0,20);        
                 //fuselage
                 yMinkCubeSphere(42,6,20, 1.5, -2,0,10);
             }//union
@@ -84,13 +84,13 @@ module stab_central_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0
                 yCyl(2.5,30,  -10,-22,3.5,  0,90,0, $fn=12);
                 */
             //vertical    
-                longeron_central_80mm(h=5, size=4.2,  12.5, rx=90);
-                longeron_central_80mm(h=4.5, size=4.2,  -16, rx=90);
-                longeron_central_80mm(h=5, size=4.2,  12.5, rx=-90);
-                longeron_central_80mm(h=4.5, size=4.2,  -16, rx=-90);
+                longeron_central_80mm(h=5, size=4.2,    12.5,0,59,  rx=90);
+                longeron_central_80mm(h=4.5, size=4.2,  -16,0,59,   rx=90);
+                longeron_central_80mm(h=5, size=4.2,    12.5,0,59,  rx=-90);
+                longeron_central_80mm(h=4.5, size=4.2,  -16,0,59,   rx=-90);
             //
             sg90_cut(-3,-1,4, -90);
-            yCube(50,50,50, 0,0,-25);
+            //yCube(50,50,50, 0,0,-25);
         }//difference
         
         //elevator
