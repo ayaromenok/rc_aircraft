@@ -261,11 +261,12 @@ module nervure_clark_y_105mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=
             nervure_cut(15,1.3,    -44,0,off);                
         }//difference        
         
-        yCyl(size_supp,6.5, 23.5,0,off, sy=0.4,$fn=6, cnt=false);
-        yCyl(size_supp,8, 8,0,off, sy=0.4,$fn=6, cnt=false);
-        yCyl(size_supp,7, -7,0,off, sy=0.4,$fn=6, cnt=false);
-        yCyl(size_supp,6, -22,0,off, sy=0.4,$fn=6, cnt=false);
-        yCyl(size_supp,3.5, -37,0,off, sy=0.4,$fn=6, cnt=false);        
+        yCyl(size_supp,6.5, 23.5,0,off, sy=0.6,$fn=6, cnt=false);
+        yCyl(size_supp,8, 8,0,off, sy=0.6,$fn=6, cnt=false);
+        yCyl(size_supp,8, 15,0,off, sy=0.6,$fn=6, cnt=false);
+        yCyl(size_supp,7, -7,0,off, sy=0.6,$fn=6, cnt=false);
+        yCyl(size_supp,6, -22,0,off, sy=0.6,$fn=6, cnt=false);
+        yCyl(size_supp,3.5, -37,0,off, sy=0.6,$fn=6, cnt=false);        
        
 	}//transform
 }//module
