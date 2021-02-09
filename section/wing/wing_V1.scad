@@ -164,7 +164,7 @@ module longeron_central_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=
                 yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=-length/2,pz=h,rx=-90);
                 
                 translate([0,-length/2,0])
-                for (i=[0:65.2:(length)]){
+                for (i=[0:32.6:(length)]){
                     yCyl(2.5,h, 0,i+2.1,h/2, sx=0.4,$fn=6);
                 }//for
             }//union
@@ -185,7 +185,7 @@ module longeron_outer_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13
                 yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=-length/2,pz=h,rx=-90);
                 
                 translate([0,-length/2,0])
-                for (i=[0:48.9:(length)]){
+                for (i=[0:32.6:(length)]){
                     yCyl(2.5,h, 0,i+2.1,h/2, sx=0.4,$fn=6);
                 }//for
             }//union
