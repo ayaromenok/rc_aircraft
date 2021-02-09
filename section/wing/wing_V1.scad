@@ -35,7 +35,7 @@ module wing_section_200x150mm_outer(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,  mx=0,my=0,
         yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=175,px=-56,py=-75, pz=10, rx=-90);
         
         //back longeron
-        yCube(4,25,0.7,    -109,-87.5,0);
+        yCube(3,25,0.7,    -109,-87.5,0.15);
                 
         nervure_clark_y_150mm_outer(0,35);
         nervure_clark_y_150mm_outer(0,-20);
@@ -56,7 +56,7 @@ module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0
         //front longeron
         yCyl(2.3,200, 39.4,0,1.2,  90,60,0, sx=0.3);
         //back longeron
-        yCube(3,200,0.7,    -109.5,0,0);
+        yCube(3,200,0.7,    -109.5,0,0.15);
         
         nervure_clark_y_150mm(0,0);
         nervure_clark_y_150mm(0,-50);
