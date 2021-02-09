@@ -2,28 +2,31 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-//wing_section_200x150mm_outer();
+//wing_section_200x150mm_outer();       //L
+//wing_section_200x150mm_outer(my=1);   //R
+//wing_section_200x150mm_straight();      //L
+//wing_section_200x150mm_straight(my=1);  //R
 wing_assembly();
 module wing_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         longeron_alu_1000x10x2(-2,0,6.5,    90,0,90);
         
-        wing_section_200x150mm_straight(0,125,0);
-        wing_section_200x150mm_straight(0,-125,0);
-        wing_section_200x150mm_straight(0,325,0);
-        wing_section_200x150mm_straight(0,-325,0);
+        wing_section_200x150mm_straight(0,200,0);
+        wing_section_200x150mm_straight(0,-200,0, my=1);
+        wing_section_200x150mm_straight(0,350,0);
+        wing_section_200x150mm_straight(0,-350,0, my=1);
         wing_section_200x150mm_outer(0,525,0);
         wing_section_200x150mm_outer(0,-525,0, my=1);
     }//transform
 }//module
 
-module wing_section_200x150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
+module wing_section_200x150mm_outer(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,  mx=0,my=0,mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
-        longeron_central_200mm();
-        longeron_central_200mm(h=12.4, -30);
+        longeron_outer_200mm();
+        longeron_outer_200mm(h=12.4, -30);
         //front longeron
         yCyl(2.3,200, 39.4,0,1.2,  90,60,0, sx=0.3);
         //back longeron s
@@ -37,24 +40,31 @@ module wing_section_200x150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my
         nervure_clark_y_150mm_outer(0,35);
         nervure_clark_y_150mm_outer(0,-20);
         nervure_clark_y_150mm_outer2(0,98.5);        
-        nervure_clark_y_150mm_outer2(0,-75);        
+        nervure_clark_y_150mm_outer2(0,-75);  
+    
+        //adhesion for pinting
+        yCube(148,3,0.35,    -36,-98.5,0);           
     }//transform
 }//module
 
-module wing_section_200x150mm_straight(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0){
     translate([(px), (py), pz])
-    rotate([rx,ry,rz]){
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
         longeron_central_200mm();
         longeron_central_200mm(h=12.4, -30);
         //front longeron
         yCyl(2.3,200, 39.4,0,1.2,  90,60,0, sx=0.3);
         //back longeron
-        yCube(4,200,0.7,    -109,0,0);
+        yCube(3,200,0.7,    -109.5,0,0);
         
-        nervure_clark_y_150mm(0,25);
-        nervure_clark_y_150mm(0,-25);
-        nervure_clark_y_150mm(0,75);        
-        nervure_clark_y_150mm(0,-75);
+        nervure_clark_y_150mm(0,0);
+        nervure_clark_y_150mm(0,-50);
+        nervure_clark_y_150mm(0,50);
+        
+        //adhesion for pinting
+        yCube(148,3,0.35,    -36,98.5,0);     
+        yCube(148,3,0.35,    -36,-98.5,0);     
     }//transform
 }//module
 
@@ -142,20 +152,45 @@ module longeron_alu_1000x10x2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         yCube(1000,10,2);
     }//transform
 }//module
-
+//longeron_central_200mm();
 module longeron_central_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13.2, size=4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
-        //yCyl(size/2,length,    0,0,0, 0,-90,90, sx=0.9, $fn=6);
-        //yCyl(size/2,length,    0,0,h, 0,90,90, sx=0.9, $fn=3);
         s_2=size/2;
         s_4=size/4;
-        yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=length/2,rx=90);
-        yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=-length/2,pz=h,rx=-90);
-        
-        translate([0,-length/2,0])
-        for (i=[0:47.5:(length)]){
-            yCyl(2.5,h, 0,i+5,h/2, sx=0.4,$fn=6);
-        }
+        difference(){
+            union(){                
+                yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=length/2,rx=90);        
+                yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=-length/2,pz=h,rx=-90);
+                
+                translate([0,-length/2,0])
+                for (i=[0:65.2:(length)]){
+                    yCyl(2.5,h, 0,i+2.1,h/2, sx=0.4,$fn=6);
+                }//for
+            }//union
+            yCube(size,45,h*2,    (s_2+0.2),length/2,h/2);
+            yCube(size,45,h*2,    (-s_2-0.4),-length/2,h/2);
+        }//difference        
+    }//transform
+}//module
+
+module longeron_outer_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13.2, size=4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        s_2=size/2;
+        s_4=size/4;
+        difference(){
+            union(){                
+                yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=length/2,rx=90);        
+                yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=length,py=-length/2,pz=h,rx=-90);
+                
+                translate([0,-length/2,0])
+                for (i=[0:48.9:(length)]){
+                    yCyl(2.5,h, 0,i+2.1,h/2, sx=0.4,$fn=6);
+                }//for
+            }//union
+            yCube(size,45,h*2,    (s_2+0.2),length/2,h/2);
+            yCube(size,45,h*2,    (-s_2-0.4),-length/2,h/2);
+        }//difference        
     }//transform
 }//module
