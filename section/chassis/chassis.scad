@@ -3,7 +3,7 @@ include <../../lib/lib2.scad>
 //chassis_connector();
 //chassis_ski();
 //chassis_middle_section();
-chassis_assembly();
+//chassis_assembly();
 module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          

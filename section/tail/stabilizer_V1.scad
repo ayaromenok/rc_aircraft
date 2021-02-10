@@ -2,8 +2,8 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-//wing_section_200x105mm_outer();
-stabilizer_assembly();
+
+//stabilizer_assembly();
 //stab_central_section();
 //stab_central_section_support(rx=180);
 //stab_v_section_200x105mm_outer();//Right

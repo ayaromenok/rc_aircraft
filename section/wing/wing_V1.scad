@@ -2,22 +2,23 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-//wing_section_200x150mm_outer();       //L
+//wing_section_200x150mm_outer();       //L 5681mm vs 4733
 //wing_section_200x150mm_outer(my=1);   //R
-//wing_section_200x150mm_straight();      //L
+//wing_section_200x150mm_straight();      //L  4972mm vs 3660
+//        longeron_alu_1000x10x2(-2,0,6.5,    90,0,90);
 //wing_section_200x150mm_straight(my=1);  //R
-wing_assembly();
+//wing_assembly();
 module wing_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         longeron_alu_1000x10x2(-2,0,6.5,    90,0,90);
         
-        wing_section_200x150mm_straight(0,200,0);
-        wing_section_200x150mm_straight(0,-200,0, my=1);
-        wing_section_200x150mm_straight(0,350,0);
-        wing_section_200x150mm_straight(0,-350,0, my=1);
-        wing_section_200x150mm_outer(0,525,0);
-        wing_section_200x150mm_outer(0,-525,0, my=1);
+        wing_section_200x150mm_straight(0,177.5,0);
+        wing_section_200x150mm_straight(0,-177.5,0, my=1);
+        wing_section_200x150mm_straight(0,322.5,0);
+        wing_section_200x150mm_straight(0,-322.5,0, my=1);
+        wing_section_200x150mm_outer(0,500.0,0);
+        wing_section_200x150mm_outer(0,-500.0,0, my=1);
     }//transform
 }//module
 
@@ -35,15 +36,23 @@ module wing_section_200x150mm_outer(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,  mx=0,my=0,
         yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=175,px=-56,py=-75, pz=10, rx=-90);
         
         //back longeron
-        yCube(3,25,0.7,    -109,-87.5,0.15);
+        yCube(3,25,0.7,    -109.4,-87.5,0.35);
                 
         nervure_clark_y_150mm_outer(0,35);
         nervure_clark_y_150mm_outer(0,-20);
         nervure_clark_y_150mm_outer2(0,98.5);        
         nervure_clark_y_150mm_outer2(0,-75);  
+        
+        for (i=[-47:56:(75)]){
+            translate([0,i,0])
+            difference(){
+                nervure_clark_y_150mm_outer(0,0);
+                yCube(100,10,20,    20,0,8);
+            }
+        }//for        
     
         //adhesion for pinting
-        yCube(148,3,0.35,    -36,-98.5,0);           
+        yCube(148,3,0.35,    -36,-98.5,0.15);           
     }//transform
 }//module
 
@@ -58,7 +67,8 @@ module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0
         //back longeron
         yCube(3,200,0.7,    -109.5,0,0.15);
         
-        nervure_clark_y_150mm(0,0);
+        //nervure_clark_y_150mm(0,0);
+        nervure_clark_y_150mm_outer2(0,0);  
         nervure_clark_y_150mm(0,-50);
         nervure_clark_y_150mm(0,50);
         
@@ -68,11 +78,11 @@ module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0
     }//transform
 }//module
 
-module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=3, off=1.4){
+module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.0, off=1.2){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){        
-        size_supp=2.5;//*2
+        size_supp=2.0;//*2
         difference(){
         translate([40,0,0])       
                 rotate([90,0,180])
@@ -90,7 +100,7 @@ module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=
                 }//union
             nervure_cut(15,5.5,     30,0,off);    
             nervure_cut(15,9,       15,0,off);    
-            nervure_cut(20,10.5,    -2,0,off);    
+            nervure_cut(20,10.8,    -2,0,off);    
             nervure_cut(20,10.2,    -22,0,off);    
             nervure_cut(20,8.5,     -42,0,off);    
             nervure_cut(20,6,       -62,0,off);    
@@ -106,7 +116,7 @@ module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=
 	}//transform
 }//module
 
-module nervure_clark_y_150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=3, off=1.4){
+module nervure_clark_y_150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2, off=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){        
@@ -119,14 +129,14 @@ module nervure_clark_y_150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=
 }//module
 
 
-module nervure_clark_y_150mm_outer2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=3, off=1.4){
+module nervure_clark_y_150mm_outer2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2, off=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){                
         union(){
             nervure_clark_y_150mm();
             difference(){
-                yCyl(4.8,width,  -61,0,4.7,  90,0,0);
+                yCyl(4.6,width,  -61,0,4.7,  90,0,0);
                 yCyl(1.8,width*2,  -61,0,4.7,  90,0,0);
             }
         }//union         
@@ -153,7 +163,7 @@ module longeron_alu_1000x10x2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     }//transform
 }//module
 //longeron_central_200mm();
-module longeron_central_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13.2, size=4){
+module longeron_central_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13.2, size=3){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         s_2=size/2;
@@ -165,7 +175,7 @@ module longeron_central_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=
                 
                 translate([0,-length/2,0])
                 for (i=[0:32.6:(length)]){
-                    yCyl(2.5,h, 0,i+2.1,h/2, sx=0.4,$fn=6);
+                    yCyl(2.5,h, 0,i+2.1,h/2, sx=0.6,$fn=6);
                 }//for
             }//union
             yCube(size,45,h*2,    (s_2+0.2),length/2,h/2);
@@ -174,7 +184,7 @@ module longeron_central_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=
     }//transform
 }//module
 
-module longeron_outer_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13.2, size=4){
+module longeron_outer_200mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, length=200, h=13.2, size=3){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         s_2=size/2;
