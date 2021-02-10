@@ -6,14 +6,14 @@ chassis_assembly();
 module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          
-            chassis_connector(100,0,0,    90,0,90);
-            chassis_connector(-100,0,0,    90,0,-90);
+        chassis_connector(100,0,0,    90,0,90);
+        chassis_connector(-100,0,0,    90,0,-90);
             
-            chassis_ski(86,96.2,12);
-            chassis_ski(-126,96.2,12);
+        chassis_ski(86,96.2,12);
+        chassis_ski(-126,96.2,12);
         
-            chassis_ski(86,-96.2,12);
-            chassis_ski(-126,-96.2,12);
+        chassis_ski(86,-96.2,12);
+        chassis_ski(-126,-96.2,12);
     }//transform
 }//module
 
@@ -114,7 +114,7 @@ module chassis_ski(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         //longerons
         yCube(1,52,5,   27.5,0,-20);
         yCube(1,52,5,   -27.5,0,-20);
-        yCube(56,1,5,   0,0,-20);
+        yCube(108,1,5,   27,0,-20);
         
         //to chassis connector
         difference(){
@@ -126,5 +126,11 @@ module chassis_ski(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
             yCyl(4.5,2,  -20,0,-14,  90,0,0);
             yCyl(2.4,3,  -20,0,-14,  90,0,0);
         }//difference       
+  
+        difference(){
+            yCyl(4.5,2,  60,0,-14,  90,0,0);
+            yCyl(2.4,3,  60,0,-14,  90,0,0);
+        }//difference       
+
     }//transform
 }//module
