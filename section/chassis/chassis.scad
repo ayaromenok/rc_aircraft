@@ -47,6 +47,12 @@ module chassis_middle_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
             yTube(4,2,2,   i,14,-3);
             yTube(4,2,2,   i,-14,-3);
         }//for
+        
+        //adhesian
+        yCube(10,10,0.4,    97,24,-3.8);
+        yCube(10,10,0.4,    97,-24,-3.8);
+        yCube(10,10,0.4,    -97,24,-3.8);
+        yCube(10,10,0.4,    -97,-24,-3.8);
     }//transform
 }//module
 
@@ -111,6 +117,10 @@ module chassis_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         
         yCube(shift,shift,5,  -s_2+shift*1.5,20,2.5);
         yCube(shift,shift,5,  -s_2+shift*1.5,s_4-sh3,2.5);
+        
+        //adhesion
+        yCube(sh3,15,0.4,    s_2-shift*1.5,-8,0.2);
+        yCube(sh3,15,0.4,    -s_2+shift*1.5,-8,0.2);
     }//transform
 }//module
 
