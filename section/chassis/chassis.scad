@@ -2,21 +2,53 @@ include <../../lib/lib2.scad>
     
 //chassis_connector();
 //chassis_ski();
+//chassis_middle_section();
 chassis_assembly();
 module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          
-        chassis_connector(100,0,0,    90,0,90);
-        chassis_connector(-100,0,0,    90,0,-90);
-            
-        chassis_ski(86,96.2,12);
-        chassis_ski(-126,96.2,12);
         
-        chassis_ski(86,-96.2,12);
-        chassis_ski(-126,-96.2,12);
+        chassis_middle_section(0,0,-4, 180,0,0);
+        
+        chassis_connector(100,0,-107,    90,0,90);
+        chassis_connector(-100,0,-107,    90,0,-90);
+            
+        chassis_ski(86,96.2,-95);
+        chassis_ski(-126,96.2,-95);
+        
+        chassis_ski(86,-96.2,-95);
+        chassis_ski(-126,-96.2,-95);
     }//transform
 }//module
 
+module chassis_middle_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){          
+        //chassis_connector(100,0,-103,    90,0,90);
+        //chassis_connector(-100,0,-103,    90,0,-90);
+        
+        //to chassis connector    
+        yTube(4,2,4,    97,20,0,  0,90,0);
+        yTube(4,2,4,    97,-20,0,  0,90,0);
+        yTube(4,2,4,    -97,20,0,  0,90,0);
+        yTube(4,2,4,    -97,-20,0,  0,90,0);
+        
+        //main longerons
+        yMinkCubeCyl(198,3,5, 1,    0,9.5,-1.5);
+        yMinkCubeCyl(198,3,5, 1,    0,-9.5,-1.5);
+        
+        //"nervures"
+        yCube(3,36,5,   97.5,0,-1.5);
+        yCube(3,36,5,   -97.5,0,-1.5);
+        yCube(3,20,5,   30,0,-1.5);
+        yCube(3,20,5,   -30,0,-1.5);
+        //to fuselage
+        for (i=[-60:30:(90)]){
+            yTube(4,2,2,   i,14,-3);
+            yTube(4,2,2,   i,-14,-3);
+        }//for
+    }//transform
+}//module
 
 module chassis_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
