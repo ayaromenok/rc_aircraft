@@ -2,11 +2,10 @@ include <../../lib/lib2.scad>
 include <../../std/sg90.scad>
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
-//wing_section_200x150mm_outer();       //L 5681mm vs 4733
-//wing_section_200x150mm_outer(my=1);   //R
-//wing_section_200x150mm_straight();      //L  4972mm vs 3660
-//        longeron_alu_1000x10x2(-2,0,6.5,    90,0,90);
-//wing_section_200x150mm_straight(my=1);  //R
+//wing_section_200x150mm_outer();             //L 
+//wing_section_200x150mm_outer(my=1);       //R
+//wing_section_200x150mm_straight();        //L
+//wing_section_200x150mm_straight(my=1);    //R
 //wing_assembly();
 module wing_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
@@ -30,7 +29,7 @@ module wing_section_200x150mm_outer(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,  mx=0,my=0,
         longeron_outer_200mm(h=12.4, -30);
         //front longeron
         yCyl(2.3,200, 39.4,0,1.2,  90,60,0, sx=0.3);
-        //back longeron s
+        //main longeron s
         size=3; s_2=size/2; s_4=size/4;
         yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=175,px=-56,py=100,rx=90);
         yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=175,px=-56,py=-75, pz=10, rx=-90);
@@ -78,7 +77,7 @@ module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0
     }//transform
 }//module
 
-module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.0, off=1.2){
+module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.2){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){        
@@ -116,7 +115,7 @@ module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=
 	}//transform
 }//module
 
-module nervure_clark_y_150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2, off=1.4){
+module nervure_clark_y_150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){        
@@ -129,7 +128,7 @@ module nervure_clark_y_150mm_outer(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=
 }//module
 
 
-module nervure_clark_y_150mm_outer2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2, off=1.4){
+module nervure_clark_y_150mm_outer2(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){                
