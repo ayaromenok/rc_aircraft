@@ -1,14 +1,158 @@
 include <../../lib/lib2.scad>
-include <../../std/sg90.scad>
+
 include <../wing/wing_V1.scad>
+
+include <../../std/sg90.scad>
+include <../../std/engine_A2212.scad>
+include <../../std/prop_6035.scad>
+
 //M190 S20; set hotbed to 20C - add on 10-15 lyaer
 
 //longeron_alu_1000x10x2(-2,0,6.5,    90,0,90);
 //wing_section_200x150mm_straight(my=1);  //R
+//fuselage_wing_tail_connector(0,0,0,    0,5,0);
+//fuselage_engine_connector();
+//fuselage_chassis_connector();
+//fuselage_assembly();
 
-fuselage_wing_tail_connector(0,0,0,    0,5,0);
-//wing_assembly_central(0,0,0,    0,0,0);
+module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        fuselage_engine_connector(40,0,93.2);
+        fuselage_chassis_connector();
+        fuselage_wing_tail_connector(5,0,111,    0,0,0);    
+    }//transform
+}//module
 
+module fuselage_engine_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        
+        //engine_A2212(60,0,12, 0,-90,180);
+        //prop_6035(85,0,12, 0,90,0);
+
+        translate([10,0,-73])
+        difference(){
+            yCyl(14,20, 27,0,85, 0,90,0);
+            //engine cooling
+            yCyl(7,25, 30,0,100, 0,105,0);
+            yCyl(7,35, 30,0,70, 0,90,0);
+            yCyl(7,25, 30,17,85, 0,90,-15);
+            yCyl(7,25, 30,-17,85, 0,90,15);            
+            //weight save
+            yCube(20,40,40, 15,0,18+73,  0,35,0);
+            //engine connection
+            translate([30,0,85])
+            rotate([0,90,0])
+            rotate([0,0,45]){
+                yCyl(2,40,  9.3,0,-10); 
+                yCyl(2,40,  -9.3,0,-10); 
+                yCyl(2,40,  0,7.8,-10); 
+                yCyl(2,40,  0,-7.8,-10);
+                yCyl(4,30,  0,0,0);
+                
+                yCyl(3.5,20,  9.3,0,-10,    0,00,0); 
+                yCyl(3.5,20,  -9.3,0,-10,    0,0,0); 
+                yCyl(3.5,20,  0,7.8,-10,    0,0,0); 
+                yCyl(3.5,20,  0,-7.8,-10);
+            }//transform
+            
+        }//difference
+        
+        fuselage_wing_vertical_support();
+        fuselage_wing_vertical_support(my=1);
+        
+    }//transform
+}//module
+
+module fuselage_wing_vertical_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, my=0, mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx, my, mz]){
+        difference(){
+            union(){
+                yMinkCubeSphere(166,6,7, 2.4,  -36,9.5,1,  0,0,0);
+                //chassis                
+                yMinkCubeSphere(8,16,5, 2.4,  -20,5.75,0,  0,0,0, sx=1.4);    
+                yMinkCubeSphere(8,16,5, 2.4,  -60,5.75,0,  0,0,0, sx=1.4);                
+                yMinkCubeSphere(8,16,5, 2.4,  -100,5.75,0,  0,0,0, sx=1.4);
+                //wing                
+                yMinkCubeSphere(8,8,45, 2.4,  -25,13.75,20,  0,0,0, sx=1.4);            
+                yMinkCubeSphere(8,8,45, 2.4,  -55,13.75,20,  0,0,0, sx=1.4);
+                yMinkCubeSphere(8,8,45, 2.4,  -85,13.75,20,  0,0,0, sx=1.4);
+                yMinkCubeSphere(8,8,45, 2.4,  -115,13.75,20,  0,0,0,sx=1.4);                        
+            }//union
+        
+            yMinkCubeSphere(200,36,45, 2.4,  -40,11.75,40,  0,-5,0);
+            //to chassis            
+            yCyl(1.8,50,    -20,9.5,0);
+            yCyl(1.8,50,    -60,9.5,0);
+            yCyl(1.8,50,    -100,9.5,0);
+            
+            yCyl(3,5,    -20,9.5,7);
+            yCyl(3,5,    -60,9.5,7);
+        
+            //to wing            
+            yCyl(1.8,50,    -25,14,0);
+            yCyl(1.8,50,    -55,14,0);
+            yCyl(1.8,50,    -85,14,0);
+            yCyl(1.8,50,    -115,14,0);
+            
+            //to wing            
+            yCube(6,20,5,    -25,14,13);
+            yCube(6,20,5,     -55,14,10.5);
+            yCube(6,20,5,     -85,14,8);
+            yCube(6,20,5,     -115,14,5.5);
+            //weight save            
+            yCube(6,10,15,    -25,17,4);
+            yCube(6,10,15,     -55,17,3);
+            yCube(6,10,10,     -85,17,3);
+            yCube(6,10,10,     -115,17,1.5);
+            
+            yCube(120,25,25,    -70,27,0,  75,0,0);
+        }//difference
+        
+    }//transform
+}//module        
+module fuselage_chassis_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        
+        fuselage_chassis_vertical_support(20,9.5,0);
+        fuselage_chassis_vertical_support(20,-9.5,0);
+        fuselage_chassis_vertical_support(-20,9.5,0);
+        fuselage_chassis_vertical_support(-20,-9.5,0);
+        
+        
+        //bottom connection to chassis
+          //main longerons
+        yMinkCubeCyl(65,3,5, 1,    0,9.5,-1.5);
+        yMinkCubeCyl(65,3,5, 1,    0,-9.5,-1.5);
+        
+        //"nervures"        
+        yCube(3,20,5,   30,0,-1.5);
+        yCube(3,20,5,   -30,0,-1.5);
+        //to fuselage
+        for (i=[-30:30:(30)]){
+            yTube(4,2,2,   i,14,-3);
+            yTube(4,2,2,   i,-14,-3);
+        }//for
+   }//transform
+}//module
+module fuselage_chassis_vertical_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, height=95){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        difference(){
+            yMinkCubeCyl(5,5,height, 2,    0,0,(height/2-4.1), sx=2.6);
+            yCyl(1.8,20,    0,0,height-10);            
+            yCube(7,7,4,    0,0,height-10);
+            //additional holes for camera holder, etc - just in case            
+            yCyl(1.8,10,    0,0,height/2,  90,0,0);
+            yCyl(1.8,10,    0,0,height/4,  90,0,0);
+        }
+        
+    }//transform
+}//module
 module fuselage_wing_tail_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
