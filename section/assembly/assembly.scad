@@ -1,4 +1,4 @@
-include <../chassis/chassis.scad>
+include <../chassis/chassis_v1_1.scad>
 include <../wing/wing_V1.scad>
 include <../tail/stabilizer_V1.scad>
 include <../fuselage/fuselage_V1.scad>
