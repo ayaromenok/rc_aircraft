@@ -10,7 +10,7 @@ include <../../std/prop_6035.scad>
 
 //longeron_alu_1000x10x2(-2,0,6.5,    90,0,90);
 
-fuselage_wing_tail_connector(0,0,0,    0,5,0);
+//fuselage_wing_tail_connector(0,0,0,    0,5,0);
 //fuselage_engine_connector();
 //fuselage_chassis_connector();
 //fuselage_assembly();
@@ -26,12 +26,11 @@ module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
 
 module fuselage_engine_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
-    rotate([rx,ry,rz]){
-        
-        //engine_A2212(60,0,12, 0,-90,180);
-        //prop_6035(85,0,12, 0,90,0);
-
-        translate([10,0,-73])
+    rotate([rx,ry,rz]){        
+        //engine_A2212(60,0,14, 0,-90,180);
+        //prop_6035(85,0,14, 0,90,0);
+        //engine support
+        translate([10,0,-71])
         difference(){
             yCyl(14,20, 27,0,85, 0,90,0);
             //engine cooling
@@ -60,8 +59,7 @@ module fuselage_engine_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         }//difference
         
         fuselage_wing_vertical_support();
-        fuselage_wing_vertical_support(my=1);
-        
+        fuselage_wing_vertical_support(my=1);        
     }//transform
 }//module
 
@@ -71,47 +69,56 @@ module fuselage_wing_vertical_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0, 
     mirror([mx, my, mz]){
         difference(){
             union(){
-                yMinkCubeSphere(166,6,7, 2.4,  -36,9.5,1,  0,0,0);
+                yMinkCubeSphere(196,7,7, 2.4,  -51,9,1,  0,0,0);
                 //chassis                
                 yMinkCubeSphere(8,16,5, 2.4,  -20,5.75,0,  0,0,0, sx=1.4);    
                 yMinkCubeSphere(8,16,5, 2.4,  -60,5.75,0,  0,0,0, sx=1.4);                
                 yMinkCubeSphere(8,16,5, 2.4,  -100,5.75,0,  0,0,0, sx=1.4);
+                
                 //wing                
-                yMinkCubeSphere(8,8,45, 2.4,  -25,13.75,20,  0,0,0, sx=1.4);            
-                yMinkCubeSphere(8,8,45, 2.4,  -55,13.75,20,  0,0,0, sx=1.4);
-                yMinkCubeSphere(8,8,45, 2.4,  -85,13.75,20,  0,0,0, sx=1.4);
-                yMinkCubeSphere(8,8,45, 2.4,  -115,13.75,20,  0,0,0,sx=1.4);                        
+                yMinkCubeSphere(10,8,45, 2.4,  -25,13.75,20,  0,0,0, sx=1.4);            
+                yMinkCubeSphere(10,8,45, 2.4,  -55,13.75,20,  0,0,0, sx=1.4);
+                yMinkCubeSphere(10,8,45, 2.4,  -85,13.75,20,  0,0,0, sx=1.4);
+                yMinkCubeSphere(10,8,45, 2.4,  -115,13.75,20,  0,0,0,sx=1.4);
+                yMinkCubeSphere(10,8,45, 2.4,  -145,13.75,20,  0,0,0,sx=1.4);
             }//union
-        
-            yMinkCubeSphere(200,36,45, 2.4,  -40,11.75,40,  0,-5,0);
+            //cut 5 degree for wing
+            yMinkCubeSphere(260,36,45, 2.4,  -40,11.75,40,  0,-5,0);
             //to chassis            
             yCyl(1.8,50,    -20,9.5,0);
             yCyl(1.8,50,    -60,9.5,0);
             yCyl(1.8,50,    -100,9.5,0);
+            yCyl(1.8,50,    -140,9.5,0);
             
-            yCyl(3,5,    -20,9.5,7);
-            yCyl(3,5,    -60,9.5,7);
+            yCyl(3.2,5,    -20,9.5,7);
+            yCyl(3.2,5,    -60,9.5,7);
+            yCyl(3.2,5,    -140,9.5,7);
         
             //to wing            
             yCyl(1.8,50,    -25,14,0);
             yCyl(1.8,50,    -55,14,0);
             yCyl(1.8,50,    -85,14,0);
             yCyl(1.8,50,    -115,14,0);
+            yCyl(1.8,50,    -145,14,0);
             
             //to wing            
-            yCube(6,20,5,    -25,14,13);
-            yCube(6,20,5,     -55,14,10.5);
-            yCube(6,20,5,     -85,14,8);
-            yCube(6,20,5,     -115,14,5.5);
+            yCube(6.4,20,5,    -25,14,13);
+            yCube(6.4,20,5,     -55,14,10.5);
+            yCube(6.4,20,5,     -85,14,8);
+            yCube(6.4,20,5,     -115,14,5.5);
+            yCube(6.4,10,5,     -145,14,3);
             //weight save            
-            yCube(6,10,15,    -25,17,4);
-            yCube(6,10,15,     -55,17,3);
-            yCube(6,10,10,     -85,17,3);
-            yCube(6,10,10,     -115,17,1.5);
+            yCube(6.4,10,15,    -25,17,4);
+            yCube(6.4,10,15,     -55,17,3);
+            yCube(6.4,10,10,     -85,17,3);
+            yCube(6.4,10,10,     -115,17,1.5);
+            yCube(6.4,10,10,     -145,17,-1.5);
             
             yCube(120,25,25,    -70,27,0,  75,0,0);
         }//difference
-        
+        //adhesion
+        yCube(6,15,0.4,    45,10,-2.2);
+        yCube(6,15,0.4,    -151.5,10,-2.2);
     }//transform
 }//module        
 module fuselage_chassis_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
