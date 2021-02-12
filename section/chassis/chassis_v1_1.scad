@@ -85,7 +85,7 @@ module chassis_connector_v1_1_upper(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1
     }//transform
 }//module   
 
-chassis_connector_v1_1_middle();
+//chassis_connector_v1_1_middle();
 module chassis_connector_v1_1_middle(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){  
@@ -264,15 +264,16 @@ module chassis_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     }//transform
 }//module
 
+//chassis_ski();
 module chassis_ski(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){  
         difference(){
             yMinkCubeCyl(202,45,52, 21,     0,0,0,    90,0,0);
             yMinkCubeCyl(200,43,50, 20,     0,0,0,    90,0,0);
-            yCube(204,60,50,    0,0,20);
+            yCube(204,60,50,    0,0,27);
             yCube(204,60,50,    -16,0,7,    0,-2);
-            yCube(40,60,40,    87,0,14, 0,45,0);
+            yCube(40,60,40,    85,0,14, 0,45,0);
     
             //bottom weight saving
             yCube(50,20,10,    55,12.5,-20);    
@@ -294,25 +295,16 @@ module chassis_ski(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         }//difference
 
         //longerons
-        yCube(1,52,5,   27.5,0,-20);
-        yCube(1,52,5,   -27.5,0,-20);
-        yCube(108,1,5,   27,0,-20);
+        yCube(108,2.4,5,   27,0,-20);
+        yCube(1.2,52,5,   80.5,0,-20);
+        yCube(1.2,52,5,   27.5,0,-20);
+        yCube(1,52,3,   -27.5,0,-20);
+        
         
         //to chassis connector
-        difference(){
-            yCyl(6,2,  20,0,-14,  90,0,0);
-            yCyl(2.4,3,  20,0,-14,  90,0,0);
-        }//difference
-
-        difference(){
-            yCyl(4.5,2,  -20,0,-14,  90,0,0);
-            yCyl(2.4,3,  -20,0,-14,  90,0,0);
-        }//difference       
-  
-        difference(){
-            yCyl(4.5,2,  60,0,-14,  90,0,0);
-            yCyl(2.4,3,  60,0,-14,  90,0,0);
-        }//difference       
+        yTube(6,2.4,2.4,    20,0,-14,  90,0,0);
+        yTube(4.5,2.4,2.4,  -20,0,-14,  90,0,0);
+        yTube(4.5,2.4,2.4,  60,0,-14,  90,0,0);
 
     }//transform
 }//module
