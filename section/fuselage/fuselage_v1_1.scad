@@ -133,16 +133,16 @@ module fuselage_chassis_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4
         
         //bottom connection to chassis
           //main longerons
-        yMinkCubeCyl(65,3,5, 1,    0,9.5,-1.5);
-        yMinkCubeCyl(65,3,5, 1,    0,-9.5,-1.5);
+        yMinkCubeCyl(65,5,6, 1,    0,8.5,-1.5);
+        yMinkCubeCyl(65,5,6, 1,    0,-8.5,-1.5);
         
         //"nervures"        
         yCube(3,20,5,   30,0,-1.5);
         yCube(3,20,5,   -30,0,-1.5);
         //to fuselage
         for (i=[-30:30:(30)]){
-            yTube(4,2,2,   i,14,-3);
-            yTube(4,2,2,   i,-14,-3);
+            yTube(4,1.8,3,   i,14,-3);
+            yTube(4,1.8,3,   i,-14,-3);
         }//for
    }//transform
 }//module
@@ -150,7 +150,7 @@ module fuselage_chassis_vertical_support(px=0, py=0, pz=0, rx=0, ry=0, rz=0, hei
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         difference(){
-            yMinkCubeCyl(5,5,height, 2,    0,0,(height/2-4.1), sx=2.6);
+            yMinkCubeCyl(5,6,height, 2,    0,0,(height/2-4.1), sx=2.6);
             yCyl(1.8,20,    0,0,height-10);            
             yCube(7,7,4,    0,0,height-10);
             //additional holes for camera holder, etc - just in case            
