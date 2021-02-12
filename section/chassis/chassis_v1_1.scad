@@ -1,19 +1,16 @@
 include <../../lib/lib2.scad>
     
-
 //chassis_ski();
 //chassis_middle_section();
 //chassis_assembly();
+
 module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          
-        
         chassis_middle_section(0,0,-4, 180,0,0);
         
         chassis_connector_v1_1(106,0,-149);    
         chassis_connector_v1_1(-106,0,-149);
-        //chassis_connector(100,0,-107,    90,0,90);
-        //chassis_connector(-100,0,-107,    90,0,-90);
             
         chassis_ski(86,147,-136);
         chassis_ski(-126,147,-136);
@@ -35,8 +32,7 @@ module chassis_connector_v1_1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         
         chassis_connector_v1_1_lower(0,-147,0, 0,90,0);
         chassis_connector_v1_1_middle(0,-147,70, 0,30,-90);
-        chassis_connector_v1_1_middle(0,-147,110, 180,30,-90);
-        
+        chassis_connector_v1_1_middle(0,-147,110, 180,30,-90);       
     }//transform
 }//module
 //chassis_connector_v1_1_upper();
@@ -80,8 +76,7 @@ module chassis_connector_v1_1_upper(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1
         yTube(6,1.8,3,     0,-95,-4.5);
         yTube(4,1.8,12,    0,-95,0);
         yTube(6,1.8,3,     -40,-95,-4.5);
-        yTube(4,1.8,12,    -40,-95,0);
-        
+        yTube(4,1.8,12,    -40,-95,0);        
     }//transform
 }//module   
 
@@ -138,7 +133,7 @@ module chassis_connector_v1_1_lower(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1
         yTube(6,1.8,3,    -110,0,-4.5);
         yTube(4,1.8,12,    -110,0,0);
         
-          //adhesian
+        //adhesian
         yCube(10,9,0.4,    5,0,-5.8);
     }//transform
 }//module    
@@ -177,8 +172,7 @@ module chassis_middle_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         
         //"nervures" middle       
         yMinkCubeSphere(6,20,12, 2,     30,0,1);
-        yMinkCubeSphere(6,20,12, 2,     -30,0,1);
-        
+        yMinkCubeSphere(6,20,12, 2,     -30,0,1);        
         
         //to fuselage
         for (i=[-90:30:(90)]){
@@ -186,81 +180,11 @@ module chassis_middle_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
             yTube(5,2,4,   i,-14,-3);
         }//for
         
-        //adhesian
-        /*
-        yCube(10,10,0.4,    97,24,-3.8);
-        yCube(10,10,0.4,    97,-24,-3.8);
-        yCube(10,10,0.4,    -97,24,-3.8);
-        yCube(10,10,0.4,    -97,-24,-3.8);
-        */
-    }//transform
-}//module
-
-module chassis_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
-    translate([(px), (py), pz])
-    rotate([rx,ry,rz]){  
-        size=200;
-        shift=2.4;
-        
-        s_2=size/2;
-        s_4=size/4;
-        
-        sh2=shift*2;
-        sh3=shift*3;
-        sh_2=shift/2;
-        
-        difference(){
-            yPoly(p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]], szz=5,px=0,py=0,rx=0);
-            yPoly(p=[[s_2-shift,0],[s_2-shift,s_4-shift],[s_4-shift,s_2-shift],[-s_4+shift,s_2-shift], [-s_2+shift,s_4-shift],[-s_2+shift,0]], szz=7,px=0,py=0,pz=-1);
-        }//difference
-        difference(){
-            yPoly(p=[[s_2-sh2,0],[s_2-sh2,s_4-sh2],[s_4-sh2,s_2-sh2],[-s_4+sh2,s_2-sh2], [-s_2+sh2,s_4-sh2],[-s_2+sh2,0]], szz=5,px=0,py=0,pz=0);
-            yPoly(p=[[s_2-sh3,0],[s_2-sh3,s_4-sh3],[s_4-sh3,s_2-sh3],[-s_4+sh3,s_2-sh3], [-s_2+sh3,s_4-sh3],[-s_2+sh3,0]], szz=7,px=0,py=0,pz=-1);
-        }//difference
-        
-        //to chassis ski/wheel
-        difference(){
-            yCyl(6,shift,     s_2-sh_2,-2,6,  0,90,0);
-            yCyl(2.4,sh2,     s_2-sh_2,-2,6,  0,90,0);
-        }//difference        
-        difference(){
-            yCyl(6,shift,     s_2-sh2-sh_2,-2,6,  0,90,0);
-            yCyl(2.4,sh2,     s_2-sh2-sh_2,-2,6,  0,90,0);
-        }//difference
-        
-        //to chassis ski/wheel
-        difference(){
-            yCyl(6,shift,     -s_2+sh_2,-2,6,  0,90,0);
-            yCyl(2.4,sh2,     -s_2+sh_2,-2,6,  0,90,0);
-        }//difference        
-        difference(){
-            yCyl(6,shift,     -s_2+sh2+sh_2,-2,6,  0,90,0);
-            yCyl(2.4,sh2,     -s_2+sh2+sh_2,-2,6,  0,90,0);
-        }//difference
-        
-        //fuselage connector
-        difference(){
-            yCyl(4,5,   20,s_2+shift*1.3,2.5);
-            yCyl(2,7,   20,s_2+shift*1.3,2.5);
-        }
-        difference(){
-            yCyl(4,5,   -20,s_2+shift*1.3,2.5);
-            yCyl(2,7,   -20,s_2+shift*1.3,2.5);
-        }
-        
-        //connector of internal/external leg
-        yCube(shift,shift,5,  20,s_2-shift*1.5,2.5);
-        yCube(shift,shift,5,  -20,s_2-shift*1.5,2.5);
-        
-        yCube(shift,shift,5,  s_2-shift*1.5,20,2.5);
-        yCube(shift,shift,5,  s_2-shift*1.5,s_4-sh3,2.5);
-        
-        yCube(shift,shift,5,  -s_2+shift*1.5,20,2.5);
-        yCube(shift,shift,5,  -s_2+shift*1.5,s_4-sh3,2.5);
-        
-        //adhesion
-        yCube(sh3,15,0.4,    s_2-shift*1.5,-8,0.2);
-        yCube(sh3,15,0.4,    -s_2+shift*1.5,-8,0.2);
+        //adhesian        
+        yCube(10,10,0.4,    97,38,-4.8);
+        yCube(10,10,0.4,    97,-38,-4.8);
+        yCube(10,10,0.4,    -97,38,-4.8);
+        yCube(10,10,0.4,    -97,-38,-4.8);        
     }//transform
 }//module
 
@@ -305,6 +229,5 @@ module chassis_ski(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         yTube(6,2.4,2.4,    20,0,-14,  90,0,0);
         yTube(4.5,2.4,2.4,  -20,0,-14,  90,0,0);
         yTube(4.5,2.4,2.4,  60,0,-14,  90,0,0);
-
     }//transform
 }//module
