@@ -4,7 +4,7 @@ include <../../lib/lib2.scad>
 //chassis_middle_section();
 //chassis_assembly();
 
-module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          
         chassis_middle_section(0,0,-4, 180,0,0);
@@ -20,8 +20,45 @@ module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     }//transform
 }//module
 
+//chassis_assembly_wheel();
+module chassis_assembly_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){          
+        chassis_middle_section(0,0,-4, 180,0,0);
+        
+        chassis_connector_v1_1(106,0,-149);    
+        chassis_connector_v1_1(-106,0,-149);
+            
+        chassis_wheel(106,157,-149,  -90,0,0);
+        chassis_wheel(-106,157,-149,  -90,0,0);
+        
+        chassis_wheel(106,-157,-149,  90,0,0);
+        chassis_wheel(-106,-157,-149,  90,0,0);
+    }//transform
+}//module
+
+//chassis_wheel();
+module chassis_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0, radius=30, width=10){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){      
+        _r=radius;
+        _w = width;    
+        yTube(_r, _r-0.8, _w);
+        yTube(_r,_r*0.75, 1.2,   0,0,(-_w/2+1.2/2));
+        //yTube(_r,_r-1.2, 1.2,   0,0,0);
+        //yTube(_r,_r-1.2, 1.2,   0,0,(_w/2-1.2/2));
+        yTube(3.3, 2, 12,   0,0,-_w/2+6+2);
+        yTube(5, 3.3, 16,   0,0,-_w/2+8);    
+        for (i=[-0:45:(360)]){
+            rotate([0,0,i])
+            yCube(_r-4,3,0.75,   _r/2,0,(-_w/2+1.2/2));
+        }//for
+    }//transform
+}//module
+
+
 //chassis_connector_v1_1();
-module chassis_connector_v1_1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module chassis_connector_v1_1(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){  
         chassis_connector_v1_1_upper(0,0,100, 0,90,0);
@@ -36,7 +73,7 @@ module chassis_connector_v1_1(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
     }//transform
 }//module
 //chassis_connector_v1_1_upper();
-module chassis_connector_v1_1_upper(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module chassis_connector_v1_1_upper(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){  
         //connection to fuselage
@@ -81,7 +118,7 @@ module chassis_connector_v1_1_upper(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1
 }//module   
 
 //chassis_connector_v1_1_middle();
-module chassis_connector_v1_1_middle(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module chassis_connector_v1_1_middle(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){  
         yTube(6,1.8,3,  0,7.7,0,  90,0,0);
@@ -107,7 +144,7 @@ module chassis_connector_v1_1_middle(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=
     }//transform
 }//module    
 //chassis_connector_v1_1_lower();
-module chassis_connector_v1_1_lower(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module chassis_connector_v1_1_lower(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){  
         yTube(6,2.4,3,  0,3,0,  90,0,0);
@@ -139,7 +176,7 @@ module chassis_connector_v1_1_lower(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1
 }//module    
 
 //chassis_middle_section();
-module chassis_middle_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module chassis_middle_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          
         //main longerons
@@ -189,7 +226,7 @@ module chassis_middle_section(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
 }//module
 
 //chassis_ski();
-module chassis_ski(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
+module chassis_ski(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){  
         difference(){
