@@ -38,20 +38,21 @@ module chassis_assembly_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
 }//module
 
 //chassis_wheel();
-module chassis_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0, radius=30, width=10){
+module chassis_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0, radius=30, width=20){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){      
         _r=radius;
         _w = width;    
-        yTube(_r, _r-0.8, _w);
-        yTube(_r,_r*0.75, 1.2,   0,0,(-_w/2+1.2/2));
-        //yTube(_r,_r-1.2, 1.2,   0,0,0);
-        //yTube(_r,_r-1.2, 1.2,   0,0,(_w/2-1.2/2));
-        yTube(3.3, 2, 12,   0,0,-_w/2+6+2);
-        yTube(5, 3.3, 16,   0,0,-_w/2+8);    
+        yTube(_r, _r-0.8, 5,   0,0,(_w/2-2.5));
+        yTube(_r, _r-0.45, _w);
+        yTube(_r,_r*0.85, 1.2,   0,0,(-_w/2+1.2/2));
+        yTube(_r, _r-0.8, 5,   0,0,(-_w/2+2.5));
+
+        yTube(3.3, 2.5, 10,   0,0,-_w/2+5+2);
+        yTube(5, 3.3, 14,   0,0,-_w/2+7);    
         for (i=[-0:45:(360)]){
             rotate([0,0,i])
-            yCube(_r-4,3,0.75,   _r/2,0,(-_w/2+1.2/2));
+            yCube(_r-4,3,1.1,   _r/2+2,0,(-_w/2+1.1/2));
         }//for
     }//transform
 }//module
