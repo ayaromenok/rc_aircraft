@@ -3,7 +3,7 @@ include <../../lib/lib2.scad>
 //chassis_ski();
 //chassis_middle_section();
 //chassis_assembly();
-
+//chassis_assembly_wheel();
 module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          
@@ -20,7 +20,7 @@ module chassis_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     }//transform
 }//module
 
-//chassis_assembly_wheel();
+
 module chassis_assembly_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){          
@@ -34,8 +34,46 @@ module chassis_assembly_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         
         chassis_wheel(106,-157,-149,  90,0,0);
         chassis_wheel(-106,-157,-149,  90,0,0);
+        
+        //ammo with spring
+        chassis_spring_support_p0(117,121,-44,  90,53,90);
+        chassis_spring_support_p1(116,121,-44,  90,53,90);
+        
+        chassis_spring_support_p0(117,-121,-44,  90,-53,90);       
+        chassis_spring_support_p1(116,-121,-44,  90,-53,90);
     }//transform
 }//module
+
+//87mm open
+//chassis_spring_support_p0();
+module chassis_spring_support_p0(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        yTube(5,2.4,5,  43.5,0,2.5);        
+        yCyl(2,50,  15,0,2,  0,90,0 );
+        //yCyl(4,20.5,  25,0,2,  0,90,0, clr="blue" ); //spring
+        difference(){
+            yCyl(4,6,  37.1,0,2,  0,90,0 );
+            yCube(30,10,10, 32.6,0,-5);
+        }//difference
+    }//transform
+}//module
+
+//chassis_spring_support_p1();
+module chassis_spring_support_p1(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){        
+        yTube(5,2.4,5,  -43.5,0,2.5);
+        //yCyl(2,50,  15,0,2,  0,90,0 );
+        //yCyl(4,20.5,  25,0,2,  0,90,0, clr="blue" ); //spring
+        difference(){
+            yTube(4, 2.5,55,  -12.8,0,3,  0,90,0 );
+            yCube(60,10,10, -012.8,0,-5);
+        }//difference
+    }//transform
+}//module
+
+
 
 //chassis_wheel();
 module chassis_wheel(px=0, py=0, pz=0, rx=0, ry=0, rz=0, radius=30, width=20){
