@@ -80,7 +80,7 @@ module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0
 }//module
 
 
-wing_section_aeliron();
+//wing_section_aeliron();
 module wing_section_aeliron(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
@@ -96,18 +96,24 @@ module wing_section_aeliron(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0)
     }//transform
 }//module
 
-
+//nervure_clark_y_150mm_eliron();
 module nervure_clark_y_150mm_eliron(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.2){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){        
-        yTube(4.5,1.6,3,  -61,0,4.5,  90,0,0);
-        yCyl(1,6.3,   -78,0,3.2, $fn=4,sx=2);
-        yCyl(1,4.3,   -92,0,2.2, $fn=4,sx=2);
+        
         difference(){
-            yCyl(5,3, -83,0,2.9,  90,176,0, $fn=3, sx=8);
-            yCyl(3.4,4, -81,0,2.9,  90,176,0, $fn=3, sx=8);
+            union(){
+                yCyl(5,2, -83,0,2.9,  90,176,0, $fn=3, sx=8);
+                yTube(4.5,1.65,2,  -61,0,4.5,  90,0,0);
+            }//union            
+            yCube(10,5,5.5,    -69,0,3.5);
+            yCube(10,5,4,    -80.2,0,2.8);
+            yCube(10,5,2.4,    -91.4,0,2.0);
+            yCube(10,5,1,    -102.6,0,1.2);
         }//difference
+        color("blue");
+        
 	}//transform
 }//module
 
