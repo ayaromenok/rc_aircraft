@@ -62,6 +62,13 @@ module fuselage_stabilizer_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         yMinkCubeCyl(5,3,30, 1,    0,-7.5,10);
         yMinkCubeCyl(5,3,30, 1,    -30,6.5,10);
         yMinkCubeCyl(5,3,30, 1,    -30,-8.5,10);
+        
+        //adhesion
+        yCube(8,8,0.4,  -1,103,-7.3);
+        yCube(8,8,0.4,  -1,-103,-7.3);
+        yCube(8,8,0.4,  -31,103,-7.3);
+        yCube(8,8,0.4,  -31,-103,-7.3);
+        yCube(6,14,0.4,  35,00,-7.3);
     }//transform
 }//module        
 
