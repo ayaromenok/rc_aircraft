@@ -18,7 +18,7 @@ include <../../std/prop_6035.scad>
 //fuselage_chassis_tail_connector();
 //fuselage_assembly();
 
-module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, isServo=true){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         fuselage_engine_connector(40,0,93.2);
@@ -27,9 +27,87 @@ module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         fuselage_tail_front(50,0,93.8, 180);
         fuselage_tail_back(-150,0,93.8, 180);
         fuselage_chassis_tail_connector(0,0,93.3,  180,0,0);
-        //sg90(-45,10,73,   -90,0,0);
-        //sg90(-45,-11,79,   -180,0,0);
+        fuselage_stabilizer_connector(-475,0,87.3);
+        if (isServo){
+            sg90(-45,10,73,   -90,0,0);
+            sg90(-45,-11,79,   -180,0,0);        
+            sg90(-50,14,110.5, 90,0,180);
+            sg90(-50,-14,110.5, 90,180,0);
+        }//if (isServo)
+        
     }//transform
+}//module
+
+fuselage_stabilizer_connector();
+module fuselage_stabilizer_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz]){
+        //yCube(30,3,15,  10,-7,0);
+        //yCube(30,3,15,  10,7,0);
+        longeron_central_200mm(2,7,-7.5, 0,0,90,h=15,length=70);
+        mirror([0,1,0])
+        longeron_central_200mm(2,7,-7.5, 0,0,90,h=15,length=70);
+        
+        nervure_clark_y_150mm_outer2(0,15,-7.5, sx=0.8,sz=0.8);        
+        nervure_clark_y_150mm_outer2(0,-15,-7.5, sx=0.8,sz=0.8);
+        nervure_clark_y_150mm_outer(0,65,-7.5, sx=0.8,sz=0.8);
+        nervure_clark_y_150mm_outer(0,-65,-7.5, sx=0.8,sz=0.8);
+        //longeron_central_200mm();
+        longeron_fuselage_200mm(0,0,-7.5, h=10.5);
+        longeron_fuselage_200mm(-30,0,-7.5, h=9.5);    
+    
+        //Fin - turn 5-7 degree left for right wing
+        //yCyl(5,100, 0,0,50,  0,0,5, sx=5);
+        yMinkCubeCyl(5,3,30, 1,    0,7.5,10);
+        yMinkCubeCyl(5,3,30, 1,    0,-7.5,10);
+        yMinkCubeCyl(5,3,30, 1,    -30,6.5,10);
+        yMinkCubeCyl(5,3,30, 1,    -30,-8.5,10);
+    }//transform
+}//module        
+
+//fuselage_stabilizer_h(,0,140,0);
+//fuselage_stabilizer_h_elevator(12,109,-8);
+module fuselage_stabilizer_h(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,my=0,mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        
+        nervure_clark_y_150mm_outer2(0,63,-7.5, sx=0.8,sz=0.8);                
+        nervure_clark_y_150mm_outer(0,25,-7.5, sx=0.8,sz=0.8);
+        nervure_clark_y_150mm_outer(0,-25,-7.5, sx=0.8,sz=0.8);
+        
+        longeron_outer_200mm(0,0,-7.5, h=10.5, length=125);
+        longeron_outer_200mm(-30,0,-7.5, h=9.5, length=125);        
+    }//transform
+}//module        
+
+module fuselage_stabilizer_h_elevator(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        nervure_clark_y_150mm_elevator(0,0,0);
+        nervure_clark_y_150mm_elevator(0,45,0);
+        nervure_clark_y_150mm_elevator(0,-45,0);
+        nervure_clark_y_150mm_elevator(0,90,0);
+        nervure_clark_y_150mm_elevator(0,-90,0);
+        
+        longeron_central_200mm(-64,0,1.1, h=6.4, length=183);
+        yCube(4,183,1,  -108,0,1.4);
+    }//transform
+}//module
+
+//nervure_clark_y_150mm_elevator();
+module nervure_clark_y_150mm_elevator(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.2){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    scale([sx,sy,sz]){        
+        yTube(3.5,1.6,3,  -61,0,4.5,  90,0,0);
+        yCyl(1,4.3,   -78,0,3.2, $fn=4,sx=2);        
+        difference(){
+            yCyl(4,3, -78.5,0,3.2,  90,176,0, $fn=3, sx=8);
+            yCyl(2.8,4, -76,0,3.3,  90,176,0, $fn=3, sx=8);
+        }//difference
+	}//transform
 }//module
 
 module fuselage_chassis_tail_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
@@ -71,6 +149,7 @@ module fuselage_chassis_tail_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         yCube(30,3,15,  -35,-22,6);
         yCube(30,3,15,  -35,22,6);
         
+        //servos
         difference(){
             yCube(34,16,20, -45,11,8.5);
             sg90_cut(-45,11,12);
