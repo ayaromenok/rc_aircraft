@@ -18,6 +18,8 @@ module wing_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, nerv_w=1.4){
         wing_section_200x150mm_straight(0,-322.5,0, my=1);
         wing_section_200x150mm_outer(0,500.0,0);
         wing_section_200x150mm_outer(0,-500.0,0, my=1);
+        wing_section_aeliron(0,512,0);
+        wing_section_aeliron(0,-512,0);
     }//transform
 }//module
 
@@ -76,6 +78,39 @@ module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0
         yCube(148,3,0.35,    -36,-98.5,0);     
     }//transform
 }//module
+
+
+wing_section_aeliron();
+module wing_section_aeliron(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        nervure_clark_y_150mm_eliron(0,0,0);
+        nervure_clark_y_150mm_eliron(0,41,0);
+        nervure_clark_y_150mm_eliron(0,-41,0);
+        nervure_clark_y_150mm_eliron(0,83,0);
+        nervure_clark_y_150mm_eliron(0,-83,0);
+        
+        longeron_central_200mm(-65,0,0, h=8, length=166);
+        yCube(4,166,1,  -120,0,0.6);
+    }//transform
+}//module
+
+
+module nervure_clark_y_150mm_eliron(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.2){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    scale([sx,sy,sz]){        
+        yTube(4.5,1.6,3,  -61,0,4.5,  90,0,0);
+        yCyl(1,6.3,   -78,0,3.2, $fn=4,sx=2);
+        yCyl(1,4.3,   -92,0,2.2, $fn=4,sx=2);
+        difference(){
+            yCyl(5,3, -83,0,2.9,  90,176,0, $fn=3, sx=8);
+            yCyl(3.4,4, -81,0,2.9,  90,176,0, $fn=3, sx=8);
+        }//difference
+	}//transform
+}//module
+
 
 module nervure_clark_y_150mm(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.2){
     translate([(px), (py), pz])
