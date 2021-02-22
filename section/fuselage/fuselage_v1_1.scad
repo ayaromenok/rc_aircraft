@@ -16,6 +16,13 @@ include <../../std/prop_6035.scad>
 //fuselage_tail_front();
 //fuselage_tail_back();
 //fuselage_chassis_tail_connector();
+//fuselage_stabilizer_connector();
+//fuselage_stabilizer_v_top(0,-100,0,my=1);
+//fuselage_stabilizer_v_bot(0,18,0,my=1);
+//fuselage_stabilizer_v_rudder();
+//fuselage_stabilizer_h(,0,140,0);//left
+//fuselage_stabilizer_h(,0,-140,0, my=1);//right
+//fuselage_stabilizer_h_elevator();
 //fuselage_assembly();
 
 module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, isServo=true){
@@ -28,6 +35,16 @@ module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, isServo=true){
         fuselage_tail_back(-150,0,93.8, 180);
         fuselage_chassis_tail_connector(0,0,93.3,  180,0,0);
         fuselage_stabilizer_connector(-475,0,87.3);
+        translate([-475,0,87.3]){
+            fuselage_stabilizer_v_top(-10,4,85, -90,0,3,my=1);
+            fuselage_stabilizer_v_bot(-10,4,-28, -90,0,3,my=1);
+            fuselage_stabilizer_h(,0,140,0);//left
+            fuselage_stabilizer_h(,0,-140,0, my=1);//right
+            fuselage_stabilizer_h_elevator(12,109,-8);
+            fuselage_stabilizer_h_elevator(12,-109,-8);
+            fuselage_stabilizer_v_rudder(2,2,43,   90,0,0);
+        }//translate
+
         if (isServo){
             sg90(-45,10,73,   -90,0,0);
             sg90(-45,-11,79,   -180,0,0);        
@@ -38,15 +55,15 @@ module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, isServo=true){
     }//transform
 }//module
 
-fuselage_stabilizer_connector();
+
 module fuselage_stabilizer_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
         //yCube(30,3,15,  10,-7,0);
         //yCube(30,3,15,  10,7,0);
-        longeron_central_200mm(2,7,-7.5, 0,0,90,h=15,length=70);
+        longeron_central_200mm(-1.5,9,-7.5, 0,0,90,h=13,length=77);
         mirror([0,1,0])
-        longeron_central_200mm(2,7,-7.5, 0,0,90,h=15,length=70);
+        longeron_central_200mm(-1.5,9,-7.5, 0,0,90,h=13,length=77);
         
         nervure_clark_y_150mm_outer2(0,15,-7.5, sx=0.8,sz=0.8);        
         nervure_clark_y_150mm_outer2(0,-15,-7.5, sx=0.8,sz=0.8);
@@ -54,37 +71,44 @@ module fuselage_stabilizer_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
         nervure_clark_y_150mm_outer(0,-65,-7.5, sx=0.8,sz=0.8);
         //longeron_central_200mm();
         longeron_fuselage_200mm(0,0,-7.5, h=10.5);
-        longeron_fuselage_200mm(-30,0,-7.5, h=9.5);    
+        longeron_fuselage_200mm(-30,0,-7.5, h=9.5);
+        
+        yCube(3,1.2,86,    31.4,57,-6.45, 90,-30,0);
+        yCube(3,1.2,86,    31.4,-57,-6.45, 90,-30,0);
     
         //Fin - turn 5-7 degree left for right wing
         //yCyl(5,100, 0,0,50,  0,0,5, sx=5);
-        yMinkCubeCyl(5,3,30, 1,    0,7.5,10);
-        yMinkCubeCyl(5,3,30, 1,    0,-7.5,10);
-        yMinkCubeCyl(5,3,30, 1,    -30,6.5,10);
-        yMinkCubeCyl(5,3,30, 1,    -30,-8.5,10);
+        yMinkCubeCyl(5,3,30, 1,    -10,9.5,7.5);
+        yMinkCubeCyl(5,4,30, 1,    -10,-6,7.5);
+        yMinkCubeCyl(5,5,30, 1,    -40,6,7.5);
+        yMinkCubeCyl(5,3,30, 1,    -40,-8,7.5);
         
-        //adhesion
-        yCube(8,8,0.4,  -1,103,-7.3);
-        yCube(8,8,0.4,  -1,-103,-7.3);
-        yCube(8,8,0.4,  -31,103,-7.3);
-        yCube(8,8,0.4,  -31,-103,-7.3);
-        yCube(6,14,0.4,  35,00,-7.3);
+        //adhesion        
+        yCube(62,4,0.4,  0,98,-7.3);
+        yCube(62,4,0.4,  0,-98,-7.3);        
+        yCube(8,30,0.4,  33,00,-7.3);
+        yCube(6,18,0.4,  -40,00,-7.3);
+        yCube(6,30,0.4,  -86,00,-7.3);
+        yCube(6,8,0.4,  -45,65,-7.3);
+        yCube(6,8,0.4,  -45,-65,-7.3);
     }//transform
 }//module        
 
-//fuselage_stabilizer_h(,0,140,0);
-//fuselage_stabilizer_h_elevator(12,109,-8);
 module fuselage_stabilizer_h(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,my=0,mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
         
-        nervure_clark_y_150mm_outer2(0,63,-7.5, sx=0.8,sz=0.8);                
+        nervure_clark_y_150mm_outer2(0,68,-7.5, sx=0.8,sz=0.8);                
         nervure_clark_y_150mm_outer(0,25,-7.5, sx=0.8,sz=0.8);
         nervure_clark_y_150mm_outer(0,-25,-7.5, sx=0.8,sz=0.8);
         
-        longeron_outer_200mm(0,0,-7.5, h=10.5, length=125);
-        longeron_outer_200mm(-30,0,-7.5, h=9.5, length=125);        
+        longeron_outer_200mm(0,0,-7.5, h=10.5, length=135);
+        longeron_outer_200mm(-30,0,-7.5, h=9.5, length=135);     
+        yCube(3,1.2,135,    31.4,0,-6.45, 90,-30,0);
+        //adhesion
+        yCube(61,4,0.4,  0.5,-65.5,-7.3);
+        yCube(8,8,0.4,  -87,67,-7.3);
     }//transform
 }//module        
 
@@ -103,6 +127,60 @@ module fuselage_stabilizer_h_elevator(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,
     }//transform
 }//module
 
+module fuselage_stabilizer_v_top(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,my=0,mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        
+        nervure_clark_y_150mm_outer2(0,100,-7.5, sx=0.8,sz=0.8);
+        nervure_clark_y_150mm_outer(0,-63,-7.5, sx=0.8,sz=0.8);
+        nervure_clark_y_150mm_outer2(0,63,-7.5, sx=0.8,sz=0.8);        
+        nervure_clark_y_150mm_outer(0,25,-7.5, sx=0.8,sz=0.8);
+        nervure_clark_y_150mm_outer(0,-25,-7.5, sx=0.8,sz=0.8);
+        
+        longeron_outer_200mm(0,0,-7.5, h=10.5, length=200);
+        longeron_outer_200mm(-30,0,-7.5, h=9.5, length=200);     
+        yCube(3,1.2,200,    31.4,0,-6.25, 90,-30,0);
+        yCube(3,0.8,37,    -87.3,82.3,-7.1, 90,0,0);
+        //adhesion
+        yCube(61,4,0.4,  0.5,-100,-7.3);
+        
+    }//transform
+}//module        
+
+module fuselage_stabilizer_v_bot(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,my=0,mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        nervure_clark_y_150mm_outer2(0,-35,-7.5, sx=0.8,sz=0.8);
+        nervure_clark_y_150mm_outer(0,15,-7.5, sx=0.8,sz=0.8);
+        
+        longeron_outer_200mm(0,0,-7.5, h=10.5, length=70);
+        longeron_outer_200mm(-30,0,-7.5, h=9.5, length=70);     
+        yCube(3,1.2,70,    31.4,0,-6.25, 90,-30,0);
+        
+        //adhesion
+        yCube(61,4,0.4,  0.5,35,-7.3);        
+    }//transform
+}//module        
+
+
+
+
+module fuselage_stabilizer_v_rudder(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        nervure_clark_y_150mm_elevator(0,0,0);
+        nervure_clark_y_150mm_elevator(0,50,0);
+        nervure_clark_y_150mm_elevator(0,-50,0);
+        nervure_clark_y_150mm_elevator(0,102,0);
+        nervure_clark_y_150mm_elevator(0,-102,0);
+        
+        longeron_central_200mm(-64,0,1.1, h=6.4, length=204);
+        yCube(4,204,1,  -108,0,1.4);
+    }//transform
+}//module
 //nervure_clark_y_150mm_elevator();
 module nervure_clark_y_150mm_elevator(px=0, py=0, pz=0, rx=0, ry=0, rz=0, sx=1, sy=1, sz=1, width=2.6, off=1.2){
     translate([(px), (py), pz])

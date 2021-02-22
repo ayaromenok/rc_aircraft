@@ -93,7 +93,7 @@ module wing_aeliron_connector(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=
  	}//transform
 }//module
 
-wing_aeliron_connector2();
+//wing_aeliron_connector2();
 module wing_aeliron_connector2(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
