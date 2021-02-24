@@ -23,6 +23,8 @@ include <../../std/prop_6035.scad>
 //fuselage_stabilizer_h(,0,140,0);//left
 //fuselage_stabilizer_h(,0,-140,0, my=1);//right
 //fuselage_stabilizer_h_elevator();
+//fuselage_servo_connector();
+
 //fuselage_assembly();
 
 module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, isServo=true){
@@ -50,12 +52,31 @@ module fuselage_assembly(px=0, py=0, pz=0, rx=0, ry=0, rz=0, isServo=true){
             sg90(-45,-11,79,   -180,0,0);        
             sg90(-50,14,110.5, 90,0,180);
             sg90(-50,-14,110.5, 90,180,0);
-        }//if (isServo)
-        
+        }//if (isServo)       
     }//transform
 }//module
 
 
+module fuselage_servo_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,my=0,mz=0){
+    translate([(px), (py), pz])
+    rotate([rx,ry,rz])
+    mirror([mx,my,mz]){
+        difference(){
+            union(){
+                yMinkCubeCyl(20,3.6,1.4, 0.8);
+                yCyl(3,3.4,   -8,0,1);
+            }//union
+            yCyl(1,10,   -8,0,0);
+            yCyl(0.7,5,   8,0,0);
+            yCyl(0.7,5,   6,0,0);
+            yCyl(0.7,5,   4,0,0);
+            yCyl(0.7,5,   2,0,0);
+            yCyl(0.7,5,   0,0,0);
+            yCyl(0.7,5,   -2,0,0);
+            yCyl(0.7,5,   -4,0,0);
+        }//difference
+    }//transform
+}//module
 module fuselage_stabilizer_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz]){
@@ -155,8 +176,8 @@ module fuselage_stabilizer_v_bot(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,my=0,m
         nervure_clark_y_150mm_outer2(0,-35,-7.5, sx=0.8,sz=0.8);
         nervure_clark_y_150mm_outer(0,15,-7.5, sx=0.8,sz=0.8);
         
-        longeron_outer_200mm(0,0,-7.5, h=10.5, length=70);
-        longeron_outer_200mm(-30,0,-7.5, h=9.5, length=70);     
+        longeron_outer_200mm(0,14,-7.5, h=10.5, length=100);
+        longeron_outer_200mm(-30,14,-7.5, h=9.5, length=100);     
         yCube(3,1.2,70,    31.4,0,-6.25, 90,-30,0);
         
         //adhesion
