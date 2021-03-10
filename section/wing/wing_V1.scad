@@ -79,13 +79,13 @@ module wing_section_200x150mm_straight(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0
     }//transform
 }//module
 
-//wing_aeliron_connector(0,0,12,  180,0,0);
+//wing_aeliron_connector(0,0,12,  0,0,0);
 module wing_aeliron_connector(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
-        yTube(5,2.7,5);
-        yTube(5,1.6,2,  0,0,3);
+        yTube(5,2.6,5.6);
+        yTube(5,1.6,0.8,  0,0,2.8);
         difference(){
             yTube(5,2.7,10,  0,0,6);
             yCube(10,4,10,  0,0,7);
@@ -111,14 +111,15 @@ module wing_section_aeliron(px=0,py=0,pz=0,  rx=0,ry=0,rz=0,     mx=0,my=0,mz=0)
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
-        nervure_clark_y_150mm_eliron(0,0,0);
-        nervure_clark_y_150mm_eliron(0,41,0);
-        nervure_clark_y_150mm_eliron(0,-41,0);
-        nervure_clark_y_150mm_eliron(0,83,0);
-        nervure_clark_y_150mm_eliron(0,-83,0);
+        nervure_clark_y_150mm_eliron(0,20,0);
+        nervure_clark_y_150mm_eliron(0,-20,0);
+        nervure_clark_y_150mm_eliron(0,63,0);
+        nervure_clark_y_150mm_eliron(0,-63,0);
+        nervure_clark_y_150mm_eliron(0,107,0);
+        nervure_clark_y_150mm_eliron(0,-107,0);
         
-        longeron_central_200mm(-65,0,0, h=8, length=166);
-        yCube(4,166,1,  -120,0,0.5);
+        longeron_central_200mm(-65,0,0, h=8, length=216);
+        yCube(4,216,1,  -120,0,0.5);
     }//transform
 }//module
 
