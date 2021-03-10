@@ -23,7 +23,7 @@ include <../../std/prop_6035.scad>
 //fuselage_stabilizer_h(,0,140,0);//left
 //fuselage_stabilizer_h(,0,-140,0, my=1);//right
 //fuselage_stabilizer_h_elevator();
-//fuselage_servo_connector();
+fuselage_servo_connector();
 
 //fuselage_assembly();
 
@@ -64,9 +64,9 @@ module fuselage_servo_connector(px=0, py=0, pz=0, rx=0, ry=0, rz=0, mx=0,my=0,mz
         difference(){
             union(){
                 yMinkCubeCyl(20,3.6,1.4, 0.8);
-                yCyl(3,3.4,   -8,0,1);
+                yCyl(3,7.4,   -8,0,3);
             }//union
-            yCyl(1,10,   -8,0,0);
+            yCyl(1,20,   -8,0,0);
             yCyl(0.7,5,   8,0,0);
             yCyl(0.7,5,   6,0,0);
             yCyl(0.7,5,   4,0,0);
